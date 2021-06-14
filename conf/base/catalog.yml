@@ -1,0 +1,12 @@
+economic_indicators:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/economic_indicators_all.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True
+
+plan_details:
+    type: five_year_plan_analysis.extras.datasets.FiveYearPlanJSONDataSet
+    filepath: data/01_raw/plans/FY22-FY26-Proposed.json

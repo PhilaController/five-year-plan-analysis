@@ -1,0 +1,9 @@
+[
+    {
+        "name": "SP500",
+        "series_id": "MULTPL/SP500_REAL_PRICE_MONTH",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Monthly S&P 500 Price"
+    }
+]

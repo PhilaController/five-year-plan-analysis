@@ -1,0 +1,38 @@
+[
+    {
+        "name": "BuildingPermitsPhilly",
+        "frequency": "monthly",
+        "geography": "Philadelphia",
+        "description": "New construction permits for the City of Philadelphia",
+        "table_name": "permits",
+        "date_column": "permitissuedate",
+        "where": "permitissuedate > '2007-01-01' AND permitdescription IN ( 'RESIDENTIAL BUILDING PERMIT', 'COMMERCIAL BUILDING PERMIT', 'NEW CONSTRUCTION PERMIT' )"
+    },
+    {
+        "name": "ActivityLicensesPhilly",
+        "frequency": "monthly",
+        "geography": "Philadelphia",
+        "description": "Commercial activity licenses for the City of Philadelphia",
+        "table_name": "com_act_licenses",
+        "date_column": "issuedate",
+        "where": "issuedate > '2007-01-01' AND legalentitytype = 'Company'"
+    },
+    {
+        "name": "BizLicensesPhilly",
+        "frequency": "monthly",
+        "geography": "Philadelphia",
+        "description": "Business licenses for the City of Philadelphia",
+        "table_name": "business_licenses",
+        "date_column": "mostrecentissuedate",
+        "where": "mostrecentissuedate > '2007-01-01'"
+    },
+    {
+        "name": "DeedTransfersPhilly",
+        "frequency": "monthly",
+        "geography": "Philadelphia",
+        "description": "Deed real estate transfers for the City of Philadelphia",
+        "table_name": "RTT_SUMMARY",
+        "date_column": "recording_date",
+        "where": "document_type = 'DEED'"
+    }
+]

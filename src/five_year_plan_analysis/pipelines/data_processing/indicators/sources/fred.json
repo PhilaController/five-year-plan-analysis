@@ -1,0 +1,418 @@
+[
+    {
+        "name": "PersonalIncomePhillyMSA",
+        "series_id": "PCPI42101",
+        "geography": "Philadelphia MSA",
+        "frequency": "annual",
+        "description": "Per Capita Personal Income in Philadelphia County/city, PA",
+        "seas_adjusted": false
+    },
+    {
+        "name": "RealGDPPhillyMSA",
+        "series_id": "RGMP37980",
+        "geography": "Philadelphia MSA",
+        "frequency": "annual",
+        "description": "Total Real Gross Domestic Product for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",
+        "seas_adjusted": false
+    },
+    {
+        "name": "YieldCurve",
+        "series_id": "T10Y2Y",
+        "geography": "national",
+        "frequency": "daily",
+        "description": "10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity",
+        "seas_adjusted": false
+    },
+    {
+        "name": "SahmRule",
+        "series_id": "SAHMREALTIME",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Real-time Sahm Rule Recession Indicator",
+        "seas_adjusted": true
+    },
+    {
+        "name": "EmploymentCostIndex",
+        "series_id": "ECIWAG",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Employment Cost Index: Wages and Salaries: Private Industry Workers",
+        "seas_adjusted": true
+    },
+    {
+        "name": "WagesPhillyMSA",
+        "series_id": "ENUC379840010SA",
+        "geography": "Philadelphia MSA",
+        "frequency": "quarterly",
+        "description": "Average Weekly Wages for Employees in Total Covered Establishments in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",
+        "seas_adjusted": true
+    },
+    {
+        "name": "NonfarmEmployeesPhillyMSA",
+        "series_id": "PHIL942NA",
+        "geography": "Philadelphia MSA",
+        "frequency": "monthly",
+        "description": "All Employees: Total Nonfarm in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",
+        "seas_adjusted": true
+    },
+    {
+        "name": "NonfarmEmployeesPhilly",
+        "series_id": "SMS42979610000000001",
+        "geography": "Philadelphia",
+        "frequency": "monthly",
+        "description": "All Employees: Total Nonfarm in Philadelphia City, PA",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PersonalSavingsRate",
+        "series_id": "PSAVERT",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Personal Savings Rate",
+        "seas_adjusted": true
+    },
+    {
+        "name": "NYCGasPrice",
+        "series_id": "DGASNYH",
+        "geography": "national",
+        "frequency": "daily",
+        "description": "Conventional Gasoline Prices: New York Harbor, Regular",
+        "seas_adjusted": false
+    },
+    {
+        "name": "CarSales",
+        "series_id": "TOTALSA",
+        "geography": "national",
+        "frequency": "daily",
+        "description": "Total Vehicle Sales",
+        "seas_adjusted": true
+    },
+    {
+        "name": "RealRetailFoodServiceSales",
+        "series_id": "RRSFS",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Advance Real Retail and Food Services Sales",
+        "seas_adjusted": true
+    },
+    {
+        "name": "UnemploymentRate",
+        "series_id": "UNRATE",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Unemployment Rate",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PPI",
+        "series_id": "PPIACO",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Producer Price Index for All Commodities",
+        "seas_adjusted": false
+    },
+    {
+        "name": "UnemploymentPhillyMSA",
+        "series_id": "PHIL942UR",
+        "geography": "Philadelphia MSA",
+        "frequency": "monthly",
+        "description": "Unemployment Rate in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",
+        "seas_adjusted": true
+    },
+    {
+        "name": "UnemploymentPhilly",
+        "series_id": "PAPHIL5URN",
+        "geography": "Philadelphia",
+        "frequency": "monthly",
+        "description": "Unemployment Rate in Philadelphia County/City, PA",
+        "seas_adjusted": false
+    },
+    {
+        "name": "PopulationPhilly",
+        "series_id": "PAPHIL5POP",
+        "geography": "Philadelphia",
+        "frequency": "annual",
+        "description": "Resident Population in Philadelphia County/city, PA",
+        "seas_adjusted": false
+    },
+    {
+        "name": "CorporateProfits",
+        "series_id": "CPROFIT",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Corporate Profits with Inventory Valuation Adjustment (IVA) and Capital Consumption Adjustment (CCAdj)",
+        "seas_adjusted": true
+    },
+    {
+        "name": "RealGDP",
+        "series_id": "GDPC1",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Real Gross Domestic Product",
+        "seas_adjusted": true
+    },
+    {
+        "name": "AlcoholSales",
+        "series_id": "MRTSSM4453USS",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Retail Sales: Beer, Wine, and Liquor Stores",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PrimeEPOP",
+        "series_id": "LNS12300060",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Employment-Population Ratio",
+        "seas_adjusted": true
+    },
+    {
+        "name": "JobOpenings",
+        "series_id": "JTSJOL",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Job Openings: Total Nonfarm",
+        "seas_adjusted": true
+    },
+    {
+        "name": "UncertaintyIndex",
+        "series_id": "USEPUINDXD",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Economic Policy Uncertainty Index for United States",
+        "seas_adjusted": false
+    },
+    {
+        "name": "HousePriceIndexPhillyMSA",
+        "series_id": "ATNHPIUS37964Q",
+        "geography": "Philadelphia MSA",
+        "frequency": "quarterly",
+        "description": "All-Transactions House Price Index for Philadelphia, PA (MSAD)",
+        "seas_adjusted": false
+    },
+    {
+        "name": "BuildingPermitsPhillyMSA",
+        "series_id": "PHIL942BPPRIVSA",
+        "geography": "Philadelphia MSA",
+        "frequency": "quarterly",
+        "description": "New Private Housing Units Authorized by Building Permits for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",
+        "seas_adjusted": true
+    },
+    {
+        "name": "EconomicConditionsPhillyMSA",
+        "series_id": "PCWAGRIDX",
+        "geography": "Philadelphia MSA",
+        "frequency": "monthly",
+        "description": "Economic Conditions Index for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",
+        "seas_adjusted": true
+    },
+    {
+        "name": "CPIPhillyMSA",
+        "series_id": "CUURA102SA0",
+        "geography": "Philadelphia MSA",
+        "frequency": "monthly",
+        "description": "Consumer Price Index for All Urban Consumers: All Items in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",
+        "seas_adjusted": false
+    },
+    {
+        "name": "InitialClaimsPA",
+        "series_id": "PAICLAIMS",
+        "geography": "state",
+        "frequency": "weekly",
+        "description": "Initial Claims in Pennsylvania",
+        "seas_adjusted": false
+    },
+    {
+        "name": "ContinuedClaimsPA",
+        "series_id": "PACCLAIMS",
+        "geography": "state",
+        "frequency": "weekly",
+        "description": "Continued Claims (Insured Unemployment) in Pennsylvania",
+        "seas_adjusted": false
+    },
+    {
+        "name": "WeeklyEconomicIndex",
+        "series_id": "WEI",
+        "geography": "national",
+        "frequency": "weekly",
+        "description": "Weekly Economic Index (Lewis-Mertens-Stock)",
+        "seas_adjusted": false
+    },
+    {
+        "name": "NewManufacturingOrders",
+        "series_id": "NEWORDER",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Manufacturers' New Orders: Nondefense Capital Goods Excluding Aircraft",
+        "seas_adjusted": true
+    },
+    {
+        "name": "ConsumerConfidence",
+        "series_id": "CSCICP03USM665S",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Consumer Opinion Surveys: Confidence Indicators: Composite Indicators: OECD Indicator for the United States",
+        "seas_adjusted": true
+    },
+    {
+        "name": "ManufacturingHoursWorked",
+        "series_id": "HOHWMN02USM065S",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Weekly Hours Worked: Manufacturing for the United States",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PCE",
+        "series_id": "PCE",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Personal Consumption Expenditures",
+        "seas_adjusted": true
+    },
+    {
+        "name": "RealDisposablePersonalIncome",
+        "series_id": "DSPIC96",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Real Disposable Personal Income",
+        "seas_adjusted": true
+    },
+    {
+        "name": "HousingStarts",
+        "series_id": "HOUST",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Housing Starts: Total: New Privately Owned Housing Units Started",
+        "seas_adjusted": true
+    },
+    {
+        "name": "HousingSupply",
+        "series_id": "MSACSR",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Monthly Supply of Houses in the United States",
+        "seas_adjusted": true
+    },
+    {
+        "name": "GovtSocialBenefits",
+        "series_id": "B087RC1Q027SBEA",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Federal government current transfer payments: Government social benefits: to persons",
+        "seas_adjusted": true
+    },
+    {
+        "name": "GDPPriceIndex",
+        "series_id": "GDPCTPI",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Gross Domestic Product: Chain-type Price Index",
+        "seas_adjusted": true
+    },
+    {
+        "name": "GDP",
+        "series_id": "GDP",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Gross Domestic Product",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PCEPriceIndex",
+        "series_id": "PCEPI",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Personal Consumption Expenditures: Chain-type Price Index",
+        "seas_adjusted": true
+    },
+    {
+        "name": "CPIU",
+        "series_id": "CPIAUCSL",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+        "seas_adjusted": true
+    },
+    {
+        "name": "10YearTreasury",
+        "series_id": "GS10",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "10-Year Treasury Constant Maturity Rate",
+        "seas_adjusted": false
+    },
+    {
+        "name": "3MonthTreasury",
+        "series_id": "TB3MS",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "3-Month Treasury Bill: Secondary Market Rate",
+        "seas_adjusted": false
+    },
+    {
+        "name": "FedFundsRate",
+        "series_id": "FEDFUNDS",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Effective Federal Funds Rate",
+        "seas_adjusted": false
+    },
+    {
+        "name": "OilPriceWTI",
+        "series_id": "MCOILWTICO",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma",
+        "seas_adjusted": false
+    },
+    {
+        "name": "FHFAHousePriceIndex",
+        "series_id": "PONHPIM226S",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Purchase Only House Price Index for the United States",
+        "seas_adjusted": true
+    },
+    {
+        "name": "NonfarmEmployment",
+        "series_id": "PAYEMS",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "All Employees, Total Nonfarm",
+        "seas_adjusted": true
+    },
+    {
+        "name": "PersonalIncome",
+        "series_id": "PINCOME",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Personal Income",
+        "seas_adjusted": true
+    },
+    {
+        "name": "Wage&Salaries",
+        "series_id": "A576RC1",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Compensation of Employees, Received: Wage and Salary Disbursements",
+        "seas_adjusted": true
+    },
+    {
+        "name": "NonresidentialInvestment",
+        "series_id": "PNFI",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Private Nonresidential Fixed Investment",
+        "seas_adjusted": true
+    },
+    {
+        "name": "ResidentialInvestment",
+        "series_id": "PRFI",
+        "geography": "national",
+        "frequency": "quarterly",
+        "description": "Private Residential Fixed Investment",
+        "seas_adjusted": true
+    }
+]
