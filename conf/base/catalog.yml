@@ -7,6 +7,90 @@ economic_indicators:
     index_col: 0
     parse_dates: True
 
+quarterly_features_raw:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/quarterly_features_raw.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+quarterly_features_cbo_imputed:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/quarterly_features_cbo_imputed.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+features_and_bases:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/features_and_bases.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+features_and_bases_sa:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/features_and_bases_sa.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+stationary_guide:
+  type: pandas.ExcelDataSet
+  filepath: data/02_intermediate/stationary_guide.xlsx
+  save_args:
+    index: False
+  load_args:
+    engine: "openpyxl"
+
+final_unscaled_features:
+  type: pandas.CSVDataSet
+  filepath: data/03_feature/final_unscaled_features.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+final_scaled_features:
+  type: pandas.CSVDataSet
+  filepath: data/03_feature/final_scaled_features.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True  
+
+scaled_feature_correlations:
+  type: pandas.ExcelDataSet
+  filepath: data/04_model_input/scaled_feature_correlations.xlsx
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    engine: "openpyxl"
+
+grangers_matrix:
+  type: pandas.ExcelDataSet
+  filepath: data/04_model_input/grangers_matrix.xlsx
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    engine: "openpyxl"
+
+possible_endog_variables:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/possible_endog_variables.json
+
 plan_details:
-    type: five_year_plan_analysis.extras.datasets.FiveYearPlanJSONDataSet
+    type: fyp_analysis.extras.datasets.PlanDetailsJSONDataSet
     filepath: data/01_raw/plans/FY22-FY26-Proposed.json

@@ -1,5 +1,5 @@
 [tool.kedro]
-package_name = "five_year_plan_analysis"
+package_name = "fyp_analysis"
 project_name = "Five Year Plan Analysis"
 project_version = "0.17.3"
 
@@ -14,4 +14,4 @@ known_third_party = "kedro"
 [tool.pytest.ini_options]
 addopts = """
 --cov-report term-missing \
---cov src/five_year_plan_analysis -ra"""
+--cov src/fyp_analysis -ra"""

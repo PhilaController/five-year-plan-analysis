@@ -1,5 +1,19 @@
-# This is a boilerplate parameters config generated for pipeline 'data_processing'
-# using Kedro 0.17.3.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://kedro.readthedocs.io/en/stable/04_kedro_project_setup/02_configuration.html#parameters
+# Download fresh indicators
+fresh_indicators: False
+
+# Which indicators to seasonally adjust
+seasonal_adjustments: 
+  - "ActivityLicensesPhilly"
+  - "BizLicensesPhilly"
+  - "BuildingPermitsPhilly"
+  - "CPIPhillyMSA"
+  - "ContinuedClaimsPA"
+  - "WeeklyEconomicIndex"
+  - "DeedTransfersPhilly"
+  - "InitialClaimsPA"
+  - "UncertaintyIndex"
+  - "UnemploymentPhilly"
+
+# Start year for features 
+min_feature_year: 1996
+    

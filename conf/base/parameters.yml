@@ -1,1 +1,6 @@
-fresh_indicators: False
+# Start year for the Plan
+plan_start_year: 2022
+
+# Which CBO forecast do we want to use
+cbo_forecast_date: "latest"
+
