@@ -1,8 +1,0 @@
-sphinx
-nbsphinx
-recommonmark
-sphinx-autodoc-typehints
-sphinx_copybutton
-ipykernel
-pydata-sphinx-theme
-numpydoc

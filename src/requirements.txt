@@ -207,6 +207,7 @@ jinja2==3.0.1
     #   nbconvert
     #   nbsphinx
     #   notebook
+    #   numpydoc
     #   sphinx
 jmespath==0.10.0
     # via
@@ -343,6 +344,8 @@ numpy==1.20.3
     #   scipy
     #   seaborn
     #   statsmodels
+numpydoc==1.1.0
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 openpyxl==3.0.7
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 packaging==20.9
@@ -543,6 +546,7 @@ sphinx==4.0.2
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   nbsphinx
+    #   numpydoc
     #   pydata-sphinx-theme
     #   recommonmark
     #   sphinx-autodoc-typehints
