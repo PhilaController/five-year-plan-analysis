@@ -1,2 +1,6 @@
 # The maximum year to include in the VAR fits
 max_fit_date: "2021-06-30"
+
+# Variables for grangers calculation
+grangers_maxlag: 6
+grangers_max_date: "2019-12-31"

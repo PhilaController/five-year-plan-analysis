@@ -11,3 +11,5 @@ create_environment:
 kedro_install:
 	($(CONDA_ACTIVATE) $(ENV_NAME) ; conda install -c conda-forge kedro -y )
 	
+docs:
+	./docs/build_docs.sh "docs"
