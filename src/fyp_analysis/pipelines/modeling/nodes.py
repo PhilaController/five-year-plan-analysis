@@ -57,7 +57,7 @@ def get_grangers_matrix(
     grangers
         the grangers correlation matrix, which holds the p-values for the test between variables
     """
-    date_slice = slice("None", max_date)
+    date_slice = slice(None, max_date)
     data = scaled_features.asfreq("QS").loc[date_slice]
     return grangers_causation_matrix(data, maxlag=maxlag)
 

@@ -159,7 +159,9 @@ class PreprocessPipeline(TransformerMixin):
                     shifted_index = dt - guide["periods"] * dt.freq
                     M.loc[dt, col] = M.loc[dt, col] + M.loc[shifted_index, col]
 
+                # Make a copy and trim to input index
                 feature = M[col].copy()
+                feature = feature.loc[X.index]
 
                 # Update
                 newcol = newcol[2:]

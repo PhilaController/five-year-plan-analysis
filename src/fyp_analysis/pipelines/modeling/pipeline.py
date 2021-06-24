@@ -18,7 +18,11 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=get_grangers_matrix,
-                inputs=["final_scaled_features"],
+                inputs=[
+                    "final_scaled_features",
+                    "params:grangers_maxlag",
+                    "params:grangers_max_date",
+                ],
                 outputs="grangers_matrix",
                 name="grangers_matrix_node",
             ),

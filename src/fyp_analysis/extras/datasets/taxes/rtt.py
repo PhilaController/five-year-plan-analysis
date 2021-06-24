@@ -14,7 +14,7 @@ class RealtyTransferTax(QuarterlyTaxData):
         return pd.concat(
             [
                 self._load_raw_rate_data("RTT").set_index("fiscal_year"),
-                self.projected_rates,
+                self.projected_rates.to_frame(),
             ]
         ).reset_index()
 

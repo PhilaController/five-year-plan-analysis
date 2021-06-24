@@ -3,6 +3,18 @@ from typing import List
 import pandas as pd
 
 
+def aggregate_to_fiscal_year(data):
+    """Group by fiscal year and sum."""
+
+    assert isinstance(data.index, pd.DatetimeIndex)
+    return (
+        data.groupby(data.index.shift(2, freq="QS").year)
+        .sum()
+        .to_frame()
+        .rename_axis("fiscal_year", index=0)
+    )
+
+
 def get_features_col(columns: List[str], col: str, how: str = "endswith") -> str:
     """
     Get a specific feature column.
@@ -59,12 +71,7 @@ def get_possible_exog_variables(
     """
     Return a list of possible exog variables based on Grangers causality.
 
-    Notes
-    -----
-    - Exog variables can only be CBO-defined variables; CBO forecasts are then
-    used in the future forecast period
-    - By definition, exog variables DO NOT Granger-cause the endog variable of
-    interest
+
 
     Parameters
     ----------
@@ -79,7 +86,7 @@ def get_possible_exog_variables(
 
     Returns
     -------
-    The list of possible exog variables for the input endog columns
+        The list of possible exog variables for the input endog columns
     """
 
     def _run(grangers, col, alpha):

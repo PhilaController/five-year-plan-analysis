@@ -26,7 +26,7 @@ def load_cbo_data(date="latest"):
         path = sorted(DATA_DIR.glob("*.xlsx"), reverse=True)[0]
     # Pick a specific date
     else:
-        if not re.match("\d{4}-\d{2}", date):
+        if not re.match("[0-9]{4}-[0-9]{2}", date):
             raise ValueError("Date should be in format YYYY-MM")
         files = list(DATA_DIR.glob(f"{date}*.xlsx"))
         if not len(files):

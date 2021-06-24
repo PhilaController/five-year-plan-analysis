@@ -4,9 +4,8 @@ import json
 from dataclasses import dataclass
 from functools import reduce
 from pathlib import Path
-from typing import List, Optional, Type, TypeVar
+from typing import Any, List, Optional
 
-import desert
 import pandas as pd
 from dotenv import load_dotenv
 from loguru import logger
@@ -58,7 +57,7 @@ class DataSource(_DataclassMixin, abc.ABC):
     description: The description of the dataset.
     """
 
-    REGISTRY: List[DataSource] = []
+    REGISTRY: List[Any] = []
     JSON: Optional[str] = None
 
     def __post_init__(self) -> None:

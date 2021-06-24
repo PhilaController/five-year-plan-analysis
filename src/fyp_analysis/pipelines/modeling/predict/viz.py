@@ -4,6 +4,7 @@ import matplotlib as mpl
 import pandas as pd
 from loguru import logger
 from matplotlib import pyplot as plt
+from phila_style import get_default_palette
 from phila_style.matplotlib import get_theme
 
 
@@ -81,207 +82,227 @@ def plot_forecast_results(
 
     return fig
 
-    # def plot_forecast(
-    #     self, *tax_bases, figsize=(6, 4), ax=None, start_year=2010, **kwargs
-    # ):
-    #     """Plot the forecast, comparing to the Mayor's projections"""
 
-    #     # Comparison
-    #     comparison = self.get_mayor_comparison(*tax_bases)
+def plot_projection(
+    tax,
+    *tax_bases,
+    figsize=(6, 4),
+    ax=None,
+    start_year=2010,
+    **kwargs,
+):
+    """Plot the forecast, comparing to the Mayor's projections"""
 
-    #     # Put into millions
-    #     for col in comparison:
-    #         comparison[col] /= 1e6
+    # Comparison
+    plan_start_year = tax.latest_historical_year + 1
+    comparison = tax.get_budget_comparison(*tax_bases)
 
-    #     # Columns
-    #     col = f"{self.name}Revenue"
+    # Put into millions
+    for col in comparison:
+        comparison[col] /= 1e6
 
-    #     # Plot
-    #     with plt.style.context(get_theme()):
+    # Columns
+    col = "Controller"
 
-    #         if ax is None:
-    #             fig, ax = plt.subplots(figsize=figsize, **kwargs)
-    #         else:
-    #             fig = ax.figure
+    # Plot
+    with plt.style.context(get_theme()):
 
-    #         colors = get_default_palette()
-    #         kws = dict(
-    #             lw=3,
-    #             mew=2,
-    #             alpha=0.9,
-    #         )
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize, **kwargs)
+        else:
+            fig = ax.figure
 
-    #         # Plot 2020 vertical line
-    #         ax.axvline(x=2020, c=colors["dark-grey"], lw=3)
+        colors = get_default_palette()
+        kws = dict(
+            lw=3,
+            mew=2,
+            alpha=0.9,
+        )
 
-    #         # Plot historic
-    #         color = colors["medium-grey"]
-    #         comparison[col].loc[start_year:2020].plot(
-    #             ax=ax,
-    #             marker="o",
-    #             color=color,
-    #             mec=color,
-    #             mfc="white",
-    #             label="",
-    #             **kws,
-    #         )
+        # Plot vertical line
+        this_year = tax.latest_historical_year
+        ax.axvline(x=this_year, c=colors["dark-gray"], lw=3)
 
-    #         F = comparison.loc[2020:].copy()
-    #         F[f"{col}Budget"] = F[f"{col}Budget"].fillna(F[col])
+        # Plot historic
+        color = colors["medium-gray"]
+        comparison[col].loc[start_year:this_year].plot(
+            ax=ax,
+            marker="o",
+            color=color,
+            mec=color,
+            mfc="white",
+            label="",
+            **kws,
+        )
 
-    #         # Plot Controller
-    #         color = colors["blue"]
-    #         F[col].plot(
-    #             ax=ax,
-    #             marker="o",
-    #             color=color,
-    #             mec=color,
-    #             mfc="white",
-    #             label="Per Controller",
-    #             **kws,
-    #         )
+        F = comparison.loc[this_year:].copy()
 
-    #         # Plot Mayor
-    #         color = colors["green"]
-    #         F[f"{col}Budget"].plot(
-    #             ax=ax,
-    #             marker="o",
-    #             color=color,
-    #             mec=color,
-    #             mfc="white",
-    #             label="Per Five Year Plan",
-    #             **kws,
-    #         )
+        # Plot Controller
+        color = colors["blue"]
+        F["Controller"].plot(
+            ax=ax,
+            marker="o",
+            color=color,
+            mec=color,
+            mfc="white",
+            label="Per Controller",
+            **kws,
+        )
 
-    #         ax.set_xlabel("Fiscal Year", fontsize=11)
-    #         ax.set_yticklabels([f"${x:,.0f}M" for x in ax.get_yticks()], fontsize=11)
-    #         ax.legend(
-    #             loc="lower center",
-    #             bbox_transform=ax.transAxes,
-    #             bbox_to_anchor=(0.5, 1),
-    #             ncol=2,
-    #             fontsize=11,
-    #         )
+        # Plot Mayor
+        color = colors["green"]
+        F["Five Year Plan"].plot(
+            ax=ax,
+            marker="o",
+            color=color,
+            mec=color,
+            mfc="white",
+            label="Per Five Year Plan",
+            **kws,
+        )
 
-    # def plot_differences(
-    #     self, *tax_bases, ax=None, figsize=(6, 4), cumulative=True, **kwargs
-    # ):
-    #     """Plot the differences between the forecast and the Mayor's projections"""
+        ax.set_xlabel("Fiscal Year", fontsize=11)
+        ax.set_yticks(ax.get_yticks())
+        ax.set_yticklabels([f"${x:,.0f}M" for x in ax.get_yticks()], fontsize=11)
 
-    #     # Comparison
-    #     comparison = self.get_mayor_comparison(*tax_bases).dropna()
+        ax.set_xlim(start_year - 0.5, plan_start_year + 4.5)
+        ax.set_xticks(ax.get_xticks())
+        ax.set_xticklabels([f"{x:.0f}" for x in ax.get_xticks()])
 
-    #     # Put into millions
-    #     for col in comparison:
-    #         comparison[col] /= 1e6
+        ax.legend(
+            loc="lower center",
+            bbox_transform=ax.transAxes,
+            bbox_to_anchor=(0.5, 1),
+            ncol=2,
+            fontsize=11,
+        )
 
-    #     # Columns
-    #     col = f"{self.name}Revenue"
 
-    #     # Diff
-    #     diff = comparison[col] - comparison[f"{col}Budget"]
-    #     if cumulative:
-    #         diff = diff.cumsum()
+def plot_projection_differences(
+    tax, *tax_bases, ax=None, figsize=(6, 4), cumulative=True, **kwargs
+):
+    """Plot the differences between the forecast and the Mayor's projections"""
 
-    #     # Plot
-    #     with plt.style.context(get_theme()):
+    # Comparison
+    plan_start_year = tax.latest_historical_year + 1
+    comparison = tax.get_budget_comparison(*tax_bases).dropna()
+    comparison = comparison.loc[plan_start_year:]
 
-    #         if ax is None:
-    #             fig, ax = plt.subplots(figsize=figsize, **kwargs)
-    #         else:
-    #             fig = ax.figure
+    # Put into millions
+    for col in comparison:
+        comparison[col] /= 1e6
 
-    #         colors = get_default_palette()
+    # Columns
+    col = "Controller"
 
-    #         # Plot
-    #         ax.axhline(y=0, color=colors["almost-black"], lw=3, zorder=11)
-    #         diff.plot(kind="bar", color=colors["medium-grey"], zorder=10)
+    # Diff
+    diff = comparison[col] - comparison["Five Year Plan"]
+    if cumulative:
+        diff = diff.cumsum()
 
-    #         ax.set_xlabel("Fiscal Year", fontsize=11)
+    # Plot
+    with plt.style.context(get_theme()):
 
-    #         def format_label(x):
-    #             if x >= 0:
-    #                 return f"${x:,.0f}M"
-    #             else:
-    #                 return "\u2212" + f"${abs(x):,.0f}M"
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize, **kwargs)
+        else:
+            fig = ax.figure
 
-    #         ax.set_yticklabels([format_label(x) for x in ax.get_yticks()], fontsize=11)
+        colors = get_default_palette()
 
-    #         for i, (yr, value) in enumerate(diff.iteritems()):
-    #             va = "top" if value < 0 else "bottom"
-    #             offset = -0.5 if value < 0.5 else 1
-    #             ax.text(
-    #                 i,
-    #                 value + offset,
-    #                 format_label(value),
-    #                 ha="center",
-    #                 va=va,
-    #                 bbox=dict(facecolor="white", pad=0, alpha=0.5),
-    #                 weight="bold",
-    #                 fontsize=9,
-    #             )
+        # Plot
+        ax.axhline(y=0, color=colors["almost-black"], lw=3, zorder=11)
+        diff.plot(kind="bar", color=colors["medium-gray"], zorder=10)
 
-    #         if cumulative:
-    #             title = "Cumulative Differences"
-    #         else:
-    #             title = "Differences by FY"
-    #         ax.text(
-    #             0.5,
-    #             1.05,
-    #             title,
-    #             ha="center",
-    #             va="bottom",
-    #             fontsize=11,
-    #             weight="bold",
-    #             transform=ax.transAxes,
-    #         )
+        ax.set_xlabel("Fiscal Year", fontsize=11)
 
-    # def plot_summary(
-    #     self,
-    #     *tax_bases,
-    #     figsize=(6, 5),
-    #     start_year=2010,
-    #     hspace=0.5,
-    #     wspace=0.35,
-    #     top=0.88,
-    #     bottom=0.15,
-    #     left=0.09,
-    #     right=0.98,
-    #     **gridspec_kws,
-    # ):
-    #     """Plot a summary comparison of the projection."""
+        def format_label(x):
+            if x >= 0:
+                return f"${x:,.0f}M"
+            else:
+                return "\u2212" + f"${abs(x):,.0f}M"
 
-    #     # Plot
-    #     with plt.style.context(get_theme()):
+        ax.set_yticks(ax.get_yticks())
+        ax.set_yticklabels([format_label(x) for x in ax.get_yticks()], fontsize=11)
 
-    #         fig = plt.figure(constrained_layout=False, dpi=300, figsize=figsize)
-    #         gs = fig.add_gridspec(
-    #             nrows=2,
-    #             ncols=2,
-    #             hspace=hspace,
-    #             wspace=wspace,
-    #             top=top,
-    #             left=left,
-    #             right=right,
-    #             bottom=bottom,
-    #             **gridspec_kws,
-    #         )
+        for i, (yr, value) in enumerate(diff.iteritems()):
+            va = "top" if value < 0 else "bottom"
+            offset = -0.5 if value < 0.5 else 1
+            ax.text(
+                i,
+                value + offset,
+                format_label(value),
+                ha="center",
+                va=va,
+                bbox=dict(facecolor="white", pad=0, alpha=0.5),
+                weight="bold",
+                fontsize=9,
+            )
 
-    #         ax = fig.add_subplot(gs[0, :])
-    #         self.plot_forecast(*tax_bases, ax=ax, start_year=start_year)
+        if cumulative:
+            title = "Cumulative Differences"
+        else:
+            title = "Differences by FY"
+        ax.text(
+            0.5,
+            1.05,
+            title,
+            ha="center",
+            va="bottom",
+            fontsize=11,
+            weight="bold",
+            transform=ax.transAxes,
+        )
 
-    #         ax = fig.add_subplot(gs[1, 0])
-    #         self.plot_differences(*tax_bases, ax=ax, cumulative=False)
 
-    #         ax = fig.add_subplot(gs[1, 1])
-    #         self.plot_differences(*tax_bases, ax=ax, cumulative=True)
+def plot_projection_comparison(
+    tax,
+    *tax_bases,
+    figsize=(6, 5),
+    start_year=2010,
+    hspace=0.5,
+    wspace=0.35,
+    top=0.88,
+    bottom=0.15,
+    left=0.09,
+    right=0.98,
+    **gridspec_kws,
+):
+    """Plot a summary comparison of the projection."""
 
-    #         # Add a title
-    #         FY = self.mayor_projections["fiscal_year"].astype(str).str.slice(-2)
-    #         tag = f"Five Year Plan FY{FY.iloc[0]}-FY{FY.iloc[-1]}"
-    #         title = f"{tag} Projection Comparison: {self.name}"
-    #         fig.text(
-    #             0.5, 0.99, title, fontsize=14, weight="bold", ha="center", va="top"
-    #         )
+    # The year the plan starts
+    this_year = tax.latest_historical_year
 
-    #     return fig
+    # Plot
+    with plt.style.context(get_theme()):
+
+        fig = plt.figure(constrained_layout=False, dpi=300, figsize=figsize)
+        gs = fig.add_gridspec(
+            nrows=2,
+            ncols=2,
+            hspace=hspace,
+            wspace=wspace,
+            top=top,
+            left=left,
+            right=right,
+            bottom=bottom,
+            **gridspec_kws,
+        )
+
+        ax = fig.add_subplot(gs[0, :])
+        plot_projection(tax, *tax_bases, ax=ax, start_year=start_year)
+
+        ax = fig.add_subplot(gs[1, 0])
+        plot_projection_differences(tax, *tax_bases, ax=ax, cumulative=False)
+
+        ax = fig.add_subplot(gs[1, 1])
+        plot_projection_differences(tax, *tax_bases, ax=ax, cumulative=True)
+
+        # Add a title
+        start_tag = str(this_year + 1)[2:]
+        end_tag = str(this_year + 5)[2:]
+        tag = f"Five Year Plan FY{start_tag}-FY{end_tag}"
+        title = f"{tag} Projection Comparison: {tax.name}"
+        fig.text(0.5, 0.99, title, fontsize=14, weight="bold", ha="center", va="top")
+
+    return fig

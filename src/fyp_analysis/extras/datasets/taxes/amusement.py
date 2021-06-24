@@ -14,7 +14,7 @@ class AmusementTax(QuarterlyTaxData):
         return pd.concat(
             [
                 self._load_raw_rate_data("Amusement").set_index("fiscal_year"),
-                self.projected_rates,
+                self.projected_rates.to_frame(),
             ]
         ).reset_index()
 

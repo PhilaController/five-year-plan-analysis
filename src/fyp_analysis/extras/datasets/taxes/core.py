@@ -242,7 +242,7 @@ class QuarterlyTaxData(_DataclassMixin, abc.ABC):
             rate_col = "rate"
 
         # Multiply base by rate
-        data = tax_base.merge(rates[rate_col], left_index=True, right_index=True)
+        data = pd.merge(tax_base, rates[rate_col], left_index=True, right_index=True)
         return (data[tax_base.name] * data[rate_col]).rename(f"{self.name}Revenue")
 
     def get_budget_comparison(self, tax_base: pd.Series) -> pd.DataFrame:

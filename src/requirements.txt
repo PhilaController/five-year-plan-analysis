@@ -4,6 +4,8 @@
 #
 #    pip-compile /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 #
+alabaster==0.7.12
+    # via sphinx
 anyconfig==0.10.1
     # via kedro
 anyio==3.2.0
@@ -31,11 +33,15 @@ attrs==21.2.0
     #   jsonschema
     #   pytest
 babel==2.9.1
-    # via jupyterlab-server
+    # via
+    #   jupyterlab-server
+    #   sphinx
 backcall==0.2.0
     # via ipython
 beautifulsoup4==4.9.3
-    # via phl-budget-data
+    # via
+    #   phl-budget-data
+    #   pydata-sphinx-theme
 binaryornot==0.4.4
     # via cookiecutter
 black==21.6b0
@@ -89,6 +95,8 @@ colorama==0.4.4
     # via crayons
 colormath==3.0.0
     # via spectra
+commonmark==0.9.1
+    # via recommonmark
 configparser==5.0.2
     # via webdriver-manager
 cookiecutter==1.7.3
@@ -111,6 +119,12 @@ desert==2020.11.18
     #   phl-budget-data
 distlib==0.3.2
     # via virtualenv
+docutils==0.16
+    # via
+    #   nbsphinx
+    #   pydata-sphinx-theme
+    #   recommonmark
+    #   sphinx
 dynaconf==3.1.4
     # via kedro
 entrypoints==0.3
@@ -143,6 +157,8 @@ idna==2.10
     # via
     #   anyio
     #   requests
+imagesize==1.2.0
+    # via sphinx
 inflection==0.5.1
     # via quandl
 iniconfig==1.1.1
@@ -151,6 +167,7 @@ intervaltree==3.1.0
     # via phl-budget-data
 ipykernel==5.5.5
     # via
+    #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   ipywidgets
     #   jupyter
     #   jupyter-console
@@ -188,7 +205,9 @@ jinja2==3.0.1
     #   jupyterlab
     #   jupyterlab-server
     #   nbconvert
+    #   nbsphinx
     #   notebook
+    #   sphinx
 jmespath==0.10.0
     # via
     #   boto3
@@ -286,6 +305,7 @@ nbconvert==6.0.7
     # via
     #   jupyter
     #   jupyter-server
+    #   nbsphinx
     #   notebook
 nbformat==5.1.3
     # via
@@ -293,8 +313,11 @@ nbformat==5.1.3
     #   jupyter-server
     #   nbclient
     #   nbconvert
+    #   nbsphinx
     #   nbstripout
     #   notebook
+nbsphinx==0.8.6
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 nbstripout==0.4.0
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 nest-asyncio==1.5.1
@@ -328,6 +351,7 @@ packaging==20.9
     #   jupyterlab
     #   jupyterlab-server
     #   pytest
+    #   sphinx
 pandas==1.2.4
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
@@ -392,6 +416,8 @@ pycparser==2.20
     # via cffi
 pycryptodome==3.10.1
     # via pdfminer.six
+pydata-sphinx-theme==0.6.3
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 pydocstyle==6.1.1
     # via flake8-docstrings
 pyflakes==2.3.1
@@ -403,6 +429,7 @@ pygments==2.9.0
     #   jupyterlab-pygments
     #   nbconvert
     #   qtconsole
+    #   sphinx
 pyparsing==2.4.7
     # via
     #   matplotlib
@@ -447,6 +474,8 @@ qtpy==1.9.0
     # via qtconsole
 quandl==3.6.1
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+recommonmark==0.7.1
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 regex==2021.4.4
     # via black
 requests==2.25.1
@@ -456,6 +485,7 @@ requests==2.25.1
     #   cookiecutter
     #   jupyterlab-server
     #   quandl
+    #   sphinx
     #   webdriver-manager
 s3transfer==0.4.2
     # via boto3
@@ -494,7 +524,9 @@ smmap==4.0.0
 sniffio==1.2.0
     # via anyio
 snowballstemmer==2.1.0
-    # via pydocstyle
+    # via
+    #   pydocstyle
+    #   sphinx
 sortedcontainers==2.4.0
     # via
     #   intervaltree
@@ -503,6 +535,30 @@ soupsieve==2.2.1
     # via beautifulsoup4
 spectra==0.0.11
     # via phila-style
+sphinx-autodoc-typehints==1.12.0
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+sphinx-copybutton==0.3.3
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+sphinx==4.0.2
+    # via
+    #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+    #   nbsphinx
+    #   pydata-sphinx-theme
+    #   recommonmark
+    #   sphinx-autodoc-typehints
+    #   sphinx-copybutton
+sphinxcontrib-applehelp==1.0.2
+    # via sphinx
+sphinxcontrib-devhelp==1.0.2
+    # via sphinx
+sphinxcontrib-htmlhelp==2.0.0
+    # via sphinx
+sphinxcontrib-jsmath==1.0.1
+    # via sphinx
+sphinxcontrib-qthelp==1.0.3
+    # via sphinx
+sphinxcontrib-serializinghtml==1.1.5
+    # via sphinx
 statsmodels==0.12.2
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 terminado==0.10.1
@@ -544,8 +600,11 @@ traitlets==5.0.5
     #   nbclient
     #   nbconvert
     #   nbformat
+    #   nbsphinx
     #   notebook
     #   qtconsole
+types-click==7.1.2
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 typing-extensions==3.10.0.0
     # via
     #   mypy

@@ -44,49 +44,65 @@ class BIRT(QuarterlyTaxData):
             NetIncomeBase=lambda df: df.NetIncomeRevenue / df.net_income_rate,
         )
 
-    # def tax_base_to_revenue(self, tax_base, kind):
-    #     """Convert gross receipts or net income tax base to revenue."""
+    def tax_base_to_revenue(self, tax_base, kind):
+        """Convert gross receipts or net income tax base to revenue."""
 
-    #     assert kind in ["gross_receipts", "net_income"]
-    #     assert tax_base.index.name == "fiscal_year"
+        assert kind in ["gross_receipts", "net_income"]
+        if tax_base.index.name != "fiscal_year":
+            raise ValueError("Input tax base should be aggregated by fiscal year")
 
-    #     # Get the rates / fraction
-    #     rate = self.rates.set_index("fiscal_year")[f"{kind}_rate"]
+        # Get the rates / fraction
+        rate = self.rates.set_index("fiscal_year")[f"{kind}_rate"]
 
-    #     # Merge
-    #     data = pd.merge(
-    #         tax_base,
-    #         rate,
-    #         left_index=True,
-    #         right_index=True,
-    #     )
-    #     name = "GrossReceipts" if kind == "gross_receipts" else "NetIncome"
-    #     return (data[tax_base.name] * data[f"{kind}_rate"]).rename(f"{name}Revenue")
+        # Merge
+        data = pd.merge(
+            tax_base,
+            rate,
+            left_index=True,
+            right_index=True,
+        )
+        name = "GrossReceipts" if kind == "gross_receipts" else "NetIncome"
+        return (data[tax_base.name] * data[f"{kind}_rate"]).rename(
+            f"{self.name}Revenue"
+        )
 
-    # def get_mayor_comparison(self, *tax_bases):
-    #     """Get the comparison between input tax base and mayor projections"""
+    def get_budget_comparison(self, *tax_bases):
+        """Get the comparison between input tax base and mayor projections"""
 
-    #     # Check input
-    #     assert len(tax_bases) == 2
-    #     tax_bases = pd.concat(list(tax_bases), axis=1)
-    #     assert "GrossReceiptsBase" in tax_bases.columns
-    #     assert "NetIncomeBase" in tax_bases.columns
+        # Check input
+        assert len(tax_bases) == 2
+        tax_bases = pd.concat(list(tax_bases), axis=1)
+        assert "GrossReceiptsBase" in tax_bases.columns
+        assert "NetIncomeBase" in tax_bases.columns
 
-    #     # Convert to revenue
-    #     gross_receipts = self.tax_base_to_revenue(
-    #         tax_bases["GrossReceiptsBase"], "gross_receipts"
-    #     )
-    #     net_income = self.tax_base_to_revenue(tax_bases["NetIncomeBase"], "net_income")
-    #     revenue = gross_receipts + net_income
+        # Convert to revenue
+        gross_receipts = self.tax_base_to_revenue(
+            tax_bases["GrossReceiptsBase"], "gross_receipts"
+        )
+        net_income = self.tax_base_to_revenue(tax_bases["NetIncomeBase"], "net_income")
+        revenue = gross_receipts + net_income
 
-    #     # Combine
-    #     return (
-    #         pd.merge(
-    #             self.mayor_projections,
-    #             revenue.reset_index(name=f"{self.name}Revenue"),
-    #             on="fiscal_year",
-    #             how="outer",
-    #         )
-    #         .set_index("fiscal_year")
-    #         .sort_index()
-    #     )
+        # Combine
+        out = (
+            pd.merge(
+                self.mayor_projections,
+                revenue.reset_index(name=f"{self.name}Revenue"),
+                on="fiscal_year",
+                how="outer",
+            )
+            .set_index("fiscal_year")
+            .sort_index()
+        )
+
+        # Fill the missing values with actuals
+        out[f"{self.name}RevenueBudget"] = out[f"{self.name}RevenueBudget"].fillna(
+            out[f"{self.name}Revenue"]
+        )
+
+        # Rename the columns
+        return out.rename(
+            columns={
+                f"{self.name}RevenueBudget": "Five Year Plan",
+                f"{self.name}Revenue": "Controller",
+            }
+        )

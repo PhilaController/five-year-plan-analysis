@@ -1,10 +1,13 @@
 import itertools
+import multiprocessing as mp
+import os
 from os import stat
 from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from sklearn.model_selection import TimeSeriesSplit
 from statsmodels.tsa.vector_ar.var_model import VARResultsWrapper
 
 from ...data_processing.preprocess.core import PreprocessPipeline
@@ -207,19 +210,22 @@ def fit_var_model(
     return var_result, unscaled_forecast
 
 
+def calculate_mape(forecast, actual):
+    return ((forecast - actual).abs() / actual.abs()).mean()
+
+
 def test_train_var_model(
     unscaled_features: pd.DataFrame,
     preprocess: PreprocessPipeline,
     endog_cols: List[str],
     order: int,
-    split_year: int,
     max_fit_date: str,
     exog_cols: List[str] = [],
+    n_splits: int = 3,
     model_quarters: bool = False,
     model_covid: bool = False,
 ) -> Tuple[VARResultsWrapper, pd.DataFrame, pd.DataFrame]:
-    """
-    Do a test/train split and evaluate the model on the test set.
+    """Do a test/train split and evaluate the model on the test set.
 
     Parameters
     ----------
@@ -252,7 +258,7 @@ def test_train_var_model(
     """
     # Split variables into (scaled) endog and exog
     scaled_features, endog, exog = _get_endog_exog_variables(
-        unscaled_features,
+        unscaled_features.loc[:max_fit_date],
         preprocess,
         endog_cols,
         exog_cols,
@@ -260,47 +266,87 @@ def test_train_var_model(
         model_covid,
     )
 
-    # Run the VAR model
-    kws = {}
-    train_dates_slice = slice(None, str(split_year))
-    if exog is not None:
-        kws = dict(exog=exog.loc[train_dates_slice])
-    var_model = sm.tsa.VAR(endog.loc[train_dates_slice], **kws)
-    var_result = var_model.fit(
-        order,
-        trend="c",
-    )
+    # Loop over timne series splits
+    actuals = []
+    forecasts = []
+    mapes = []
+    tscv = TimeSeriesSplit(n_splits=n_splits)
+    for i, (train_idx, test_idx) in enumerate(tscv.split(scaled_features)):
 
-    # Dates in test sample
-    test_dates_slice = slice(str(split_year + 1), max_fit_date)
-    test_dates = scaled_features.loc[test_dates_slice].index
-    steps = len(test_dates)
+        # Slice
+        test = scaled_features.iloc[test_idx]
+        train = scaled_features.iloc[train_idx]
 
-    # Exog vars in test sample
-    kws = {}
-    if exog is not None:
-        kws = dict(exog_future=exog.loc[test_dates])
+        # Run the VAR model on the training set
+        kws = {}
+        if exog is not None:
+            kws = dict(exog=exog.loc[train.index])
+        var_model = sm.tsa.VAR(endog.loc[train.index], **kws)
+        var_result = var_model.fit(order, trend="c")
 
-    # Run the forecast
-    endog_train = endog.loc[train_dates_slice]
-    scaled_forecast = pd.DataFrame(
-        var_result.forecast(endog_train.values, steps, **kws),
-        columns=endog.columns,
-        index=test_dates,
-    )
+        # Dates in test sample
+        steps = len(test.index)
 
-    # Unscale the forecast
-    unscaled_forecast = (
-        preprocess.inverse_transform(pd.concat([endog_train, scaled_forecast], axis=0))
-        .asfreq("QS")
-        .loc[test_dates]
-    )
+        # Exog vars in test sample
+        kws = {}
+        if exog is not None:
+            kws = dict(exog_future=exog.loc[test.index])
 
-    # Get the actual test data
-    actual = preprocess.inverse_transform(endog.loc[test_dates]).asfreq("QS")
+        # Run the forecast
+        endog_train = endog.loc[train.index]
+        scaled_forecast = pd.DataFrame(
+            var_result.forecast(endog_train.values, steps, **kws),
+            columns=endog.columns,
+            index=test.index,
+        )
+
+        # Unscale the forecast
+        unscaled_forecast = (
+            preprocess.inverse_transform(
+                pd.concat([endog_train, scaled_forecast], axis=0)
+            )
+            .asfreq("QS")
+            .loc[test.index]
+        )
+        forecasts.append(unscaled_forecast)
+
+        # Get the actual test data
+        actual = preprocess.inverse_transform(endog.loc[test.index]).asfreq("QS")
+        actuals.append(actual)
+
+        # Calculate this mape
+        mapes.append(calculate_mape(unscaled_forecast, actual))
+
+    # Concatenate
+    actuals = pd.concat(actuals)
+    forecasts = pd.concat(forecasts)
+    combined_mape = calculate_mape(forecasts, actuals)
 
     # Return
-    return var_result, actual, unscaled_forecast
+    return {"mape_vector": mapes, "mape": combined_mape}
+
+
+def _grid_search_parallel(args):
+    """Run the grid search in parallel."""
+
+    # The arguments
+    (param_set, param_names, unscaled_features, preprocess, n_splits) = args
+
+    # Get the keyword parameters for this grid cell
+    kws = dict(zip(param_names, param_set))
+
+    # Run test/train for this set of parameters
+    metrics = test_train_var_model(
+        unscaled_features,
+        preprocess,
+        n_splits=n_splits,
+        **kws,
+    )
+
+    # Add the keywords
+    metrics.update(kws)
+
+    return metrics
 
 
 def grid_search_var_model(
@@ -308,7 +354,7 @@ def grid_search_var_model(
     preprocess: PreprocessPipeline,
     grid_params: Dict[str, Any],
     main_endog: str,
-    split_year: int,
+    n_splits: int,
     seed: int = 12345,
 ) -> List[Dict[str, Any]]:
     """
@@ -345,50 +391,39 @@ def grid_search_var_model(
     param_names = list(grid_params)
     values = [grid_params[name] for name in param_names]
 
-    fits = []
-    best_score = np.inf
-    best_aic = np.inf
-    try:
-        for param_set in itertools.product(*values):
+    # Verify param names
+    required = ["endog_cols", "order", "max_fit_date"]
+    optional = ["exog_cols", "model_quarters", "model_covid"]
+    all_args = required + optional
+    if not all(col in param_names for col in required):
+        missing = set(required) - set(param_names)
+        raise ValueError(f"Missing required parameters: {missing}")
+    if not all(col in all_args for col in param_names):
+        extra = set(param_names) - set(all_args)
+        raise ValueError(f"Extra grid parameters provided: {extra}")
 
-            # Get the keyword parameters for this grid cell
-            kws = dict(zip(param_names, param_set))
+    # The other args
+    args = (
+        param_names,
+        unscaled_features,
+        preprocess,
+        n_splits,
+    )
 
-            # Run test/train for this set of parameters
-            result, actual, forecast = test_train_var_model(
-                unscaled_features,
-                preprocess,
-                split_year=split_year,
-                **kws,
-            )
+    # Run in parallel
+    N = mp.cpu_count()
+    with mp.Pool(processes=1) as p:
+        fits = p.map(
+            _grid_search_parallel,
+            [tuple([param_set, *args]) for param_set in itertools.product(*values)],
+        )
 
-            # Get the score!
-            score = ((forecast - actual).abs() / actual.abs()).mean()
-            try:
-                aic = result.aic
-            except:
-                aic = np.inf
-
-            # Save the results
-            fits.append(
-                {
-                    **kws,
-                    "score": score[main_endog],
-                    "score_vector": score,
-                    "aic": aic,
-                    "result": result,
-                }
-            )
-
-            # Update best score?
-            if score[main_endog] < best_score:
-                best_score = score[main_endog]
-                best_aic = aic
-    except KeyboardInterrupt:
-        pass
+    # Add the MAPE for the target column
+    for f in fits:
+        f["target_mape"] = f["mape"][main_endog]
 
     # Return fits, sorted from best score to worst
-    return sorted(fits, key=lambda x: x["score"])
+    return sorted(fits, key=lambda x: x["target_mape"])
 
 
 def run_possible_models(
@@ -403,7 +438,7 @@ def run_possible_models(
     alpha: float = 0.05,
     max_other_endog: int = 1,
     max_exog: int = 4,
-    split_year: int = 2014,
+    n_splits: int = 3,
     seed: int = 12345,
     model_quarters: Union[bool, List[bool]] = False,
     model_covid: Union[bool, List[bool]] = False,
@@ -508,11 +543,11 @@ def run_possible_models(
             preprocess,
             grid_params,
             main_endog,
-            split_year=split_year,
+            n_splits=n_splits,
             seed=seed,
         )
 
-    return sorted(all_fits, key=lambda x: x["score"])
+    return sorted(all_fits, key=lambda x: x["target_mape"])
 
 
 def get_avg_forecast_from_fits(
