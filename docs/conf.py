@@ -15,15 +15,20 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import re
+import shutil
+from distutils.dir_util import copy_tree
+from pathlib import Path
 
 from kedro.framework.cli.utils import find_stylesheets
 from recommonmark.transform import AutoStructify
 
 from fyp_analysis import __version__ as release
 
+here = Path(__file__).parent.absolute()
+
 # -- Project information -----------------------------------------------------
 
-project = "Five Year Plan Analysis"
+project = "Five Year Plan"
 copyright = ""
 author = "Nick Hand, Sara DeNault"
 
@@ -42,6 +47,7 @@ version = re.match(r"^([0-9]+\.[0-9]+).*", release).group(1)
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "numpydoc",
     "sphinx_autodoc_typehints",
     "sphinx.ext.doctest",
     "sphinx.ext.todo",
@@ -58,6 +64,8 @@ extensions = [
 # enable autosummary plugin (table of contents for modules/classes/class
 # methods)
 autosummary_generate = True
+
+numpydoc_show_class_members = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -80,7 +88,14 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ["_build", "**.ipynb_checkpoints"]
+exclude_patterns = [
+    "**.ipynb_checkpoints",
+    "_templates",
+    "modules.rst",
+    "source",
+    "README.md",
+]
+
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -90,7 +105,7 @@ pygments_style = "sphinx"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "pydata_sphinx_theme"
+html_theme = "sphinx_rtd_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -101,7 +116,7 @@ html_theme_options = {}  # "collapse_navigation": False, "style_external_links":
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+# html_static_path = ["_static"]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -215,12 +230,29 @@ def skip(app, what, name, obj, skip, options):
     return skip
 
 
+def _prepare_build_dir(app, config):
+    """Get current working directory to the state expected
+    by the ReadTheDocs builder. Shortly, it does the same as
+    ./build-docs.sh script except not running `sphinx-build` step."""
+    build_root = Path(app.srcdir)
+    build_out = Path(app.outdir)
+    copy_tree(str(here / "source"), str(build_root))
+    copy_tree(str(build_root / "05_api_docs"), str(build_root))
+    shutil.rmtree(str(build_root / "05_api_docs"))
+    shutil.rmtree(str(build_out), ignore_errors=True)
+    copy_tree(str(build_root / "css"), str(build_out / "_static" / "css"))
+    shutil.rmtree(str(build_root / "css"))
+
+
 def setup(app):
+    app.connect("config-inited", _prepare_build_dir)
     app.connect("autodoc-process-docstring", autodoc_process_docstring)
     app.connect("autodoc-skip-member", skip)
     # add Kedro stylesheets
-    for stylesheet in find_stylesheets():
-        app.add_stylesheet(stylesheet)
+    # app.add_css_file("css/qb1-sphinx-rtd.css")
+    # fix a bug with table wraps in Read the Docs Sphinx theme:
+    # https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html
+    # app.add_css_file("css/theme-overrides.css")
     # enable rendering RST tables in Markdown
     app.add_config_value("recommonmark_config", {"enable_eval_rst": True}, True)
     app.add_transform(AutoStructify)

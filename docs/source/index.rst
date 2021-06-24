@@ -2,13 +2,44 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to project five_year_plan_analysis's API docs!
-=============================================
+Five Year Plan Analysis
+=======================
+
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :caption: Overview
 
-   modules
+   01_overview/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Updating Data Sources
+
+   02_data_updates/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Preprocessing
+
+   03_preprocessing/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Modeling
+
+   04_modeling/index
+
+
+API documentation
+=================
+
+.. autosummary::
+   :toctree:
+   :caption: API documentation
+   :recursive:
+
+   fyp_analysis
 
 
 Indices and tables
