@@ -25,4 +25,4 @@ python:
   install:
     - method: pip
       path: ./src
-    - requirements: docs/requirements.txt
+    - requirements: src/requirements.txt
