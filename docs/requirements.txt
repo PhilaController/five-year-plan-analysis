@@ -5,3 +5,4 @@ sphinx-autodoc-typehints
 sphinx_copybutton
 ipykernel
 pydata-sphinx-theme
+kedro
