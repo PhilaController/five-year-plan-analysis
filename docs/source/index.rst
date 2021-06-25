@@ -8,9 +8,10 @@ Five Year Plan Analysis
 
 .. toctree::
    :maxdepth: 2
-   :caption: Overview
+   :caption: Getting Started
 
-   01_overview/index
+   01_getting_started/installation
+   01_getting_started/overview
 
 .. toctree::
    :maxdepth: 2
@@ -41,10 +42,3 @@ API documentation
 
    fyp_analysis
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
