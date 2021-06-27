@@ -1,11 +1,9 @@
 import json
 from dataclasses import dataclass, fields, make_dataclass
-from typing import Dict, Iterator, List, Optional, Type, TypeVar, Union
+from typing import Dict, Iterator, List, Optional, Union
 
 import pandas as pd
-from kedro.extras.datasets.json import JSONDataSet
-from kedro.extras.datasets.json.json_dataset import JSONDataSet
-from kedro.io.core import get_filepath_str
+from kedro.extras.datasets.yaml import YAMLDataSet
 
 from .taxes import TAX_NAMES
 from .utils import DataclassSchema
@@ -149,6 +147,26 @@ class PlanDetails(DataclassSchema):
         ).squeeze()
 
 
-class PlanDetailsJSONDataSet(JSONDataSet):
+class PlanDetailsYAMLDataSet(YAMLDataSet):
     def _load(self) -> PlanDetails:
-        return PlanDetails.from_dict(super()._load())
+
+        # Load the data as a dictionary
+        data = super()._load()
+
+        # Format the rates
+        assert "rates" in data
+        for tax_name in data["rates"]:
+            value = data["rates"][tax_name]
+            if isinstance(value, list):
+                data["rates"][tax_name] = {"rate": value}
+            elif isinstance(value, dict):
+                data["rates"][tax_name] = {f"rate_{k}": v for (k, v) in value.items()}
+            else:
+                raise ValueError("Error parsing rate info in YAML file.")
+
+        # Format birt splits
+        assert "net_income_fraction" in data
+        value = data.pop("net_income_fraction")
+        data["birt_splits"] = {"net_income_fraction": value}
+
+        return PlanDetails.from_dict(data)

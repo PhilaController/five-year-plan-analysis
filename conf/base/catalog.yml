@@ -14,7 +14,7 @@ quarterly_features_raw:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 quarterly_features_cbo_imputed:
   type: pandas.CSVDataSet
@@ -23,7 +23,7 @@ quarterly_features_cbo_imputed:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 features_and_bases:
   type: pandas.CSVDataSet
@@ -32,7 +32,7 @@ features_and_bases:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 features_and_bases_sa:
   type: pandas.CSVDataSet
@@ -41,7 +41,7 @@ features_and_bases_sa:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 stationary_guide:
   type: pandas.ExcelDataSet
@@ -58,7 +58,7 @@ final_unscaled_features:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 final_scaled_features:
   type: pandas.CSVDataSet
@@ -67,7 +67,7 @@ final_scaled_features:
     index: True
   load_args:
     index_col: 0
-    parse_dates: True  
+    parse_dates: True
 
 scaled_feature_correlations:
   type: pandas.ExcelDataSet
@@ -92,5 +92,5 @@ possible_endog_variables:
   filepath: data/04_model_input/possible_endog_variables.json
 
 plan_details:
-    type: fyp_analysis.extras.datasets.PlanDetailsJSONDataSet
-    filepath: data/01_raw/plans/FY22-FY26-Proposed.json
+  type: fyp_analysis.extras.datasets.PlanDetailsYAMLDataSet
+  filepath: data/01_raw/plans/FY22-FY26-Proposed.yml

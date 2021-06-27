@@ -113,7 +113,7 @@ def run(
     config,
     params,
 ):
-    """Run the pipeline."""
+    """Five Year Plan Analyais: Run a pipeline."""
     if parallel and runner:
         raise KedroCliError(
             "Both --parallel and --runner options cannot be used together. "

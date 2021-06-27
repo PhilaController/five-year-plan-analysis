@@ -1,5 +1,8 @@
 # Installation
 
+
+## Step 1: Clone the Github repository
+
 First, clone the [Github repository](https://github.com/PhiladelphiaController/five-year-plan-analysis):
 
 ```
@@ -11,10 +14,12 @@ and change to the new folder:
 cd five-year-plan-analysis
 ```
 
+## Step 2: Set up a conda environment
+
 Next, we'll create a fresh conda environment called `fyp` for the project:
 
 ```
-conda create -n fyp python=3.8
+conda create -n fyp -y python=3.8
 ```
 
 And then we can activate the new environment:
@@ -23,16 +28,25 @@ And then we can activate the new environment:
 conda activate fyp
 ```
 
-Now we are ready to install the project's dependencies. First, we need to install the main dependency, [kedro](https://github.com/quantumblacklabs/kedro/).
+---
+**NOTE**
+
+Whenever you are trying to run code from the repository, you must activate the environment first. You can 
+tell if the environment is currently activated because the command line should start with `(fyp)`.
+
+---
+
+## Step 3: Install the package and its dependencies
+
+
+The analysis code is stored in the `src/` folder. With the environment activated, we can 
+use the `pip` command to install the relevant dependencies and the package itself:
 
 ```
-conda install -c conda-forge kedro
+pip install -e src -r src/requirements.txt
 ```
-And then we can use the `kedro` command  to install the rest of the dependencies:
 
-```
-kedro install
-```
+## Step 4: Verify the installation worked
 
 To verify the installation worked properly, run the 
 following:

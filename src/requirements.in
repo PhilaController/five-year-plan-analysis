@@ -40,5 +40,5 @@ recommonmark
 sphinx-autodoc-typehints
 sphinx_copybutton
 ipykernel
-pydata-sphinx-theme
+sphinx-rtd-theme
 numpydoc
