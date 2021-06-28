@@ -5,6 +5,9 @@
 Five Year Plan Revenue Projections
 ==================================
 
+.. image:: https://img.shields.io/badge/Github-Launch-blue
+ :target: https://github.com/PhiladelphiaController/five-year-plan-analysis
+
 The goal of the analysis is to produce revenue projections for the City of Philadelphia's major tax revenues 
 as part of the Controller's Office review of the City's annual Five Year Plan. The tax revenues being
 projected are:

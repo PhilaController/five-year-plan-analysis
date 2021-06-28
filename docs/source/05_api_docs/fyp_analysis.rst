@@ -29,6 +29,7 @@ fyp\_analysis
 
    fyp_analysis.cli
    fyp_analysis.extras
+   fyp_analysis.historical
    fyp_analysis.hooks
    fyp_analysis.pipeline_registry
    fyp_analysis.pipelines
