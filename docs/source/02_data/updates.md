@@ -128,3 +128,10 @@ the Plan.
 
 
 ## Economic Indicators
+
+The economic indicators are stored locally in the `data/01_raw/indicators/` folder. The 
+data is automatically downloaded as part of the data processing pipeline
+in the analysis. To get a fresh copy of the indicators downloaded locally, you 
+can change the `fresh_indicators` parameter in the `conf/base/parameters/data_processing.yml`
+file to `True`. This will download the latest version of all indicators.
+
