@@ -110,7 +110,7 @@ indicators = catalog.load("economic_indicators")
 ## Step 4
 
 - **Function**: `combine_features_and_bases()` [(docs)](fyp_analysis.pipelines.data_processing.nodes.combine_features_and_bases.html#fyp_analysis.pipelines.data_processing.nodes.combine_features_and_bases)
-- **Purpose**: Combine the economic indicator features and the tax bases into a single data frame.
+- **Purpose**: Combine the economic indicator features and the tax base data into a single data frame.
 - **Inputs**: 
     - Dataset: `quarterly_features_cbo_imputed`
     - Dataset: `plan_details`

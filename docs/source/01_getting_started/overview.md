@@ -132,7 +132,7 @@ In the repository, the source code for the two pipelines are broken out separate
 (see [here](https://github.com/PhiladelphiaController/five-year-plan-analysis/tree/main/src/fyp_analysis/pipelines)).
 
 More information is provided for each of these pipelines in the [Data Processing](../03_processing/overview)
-and [Modeling](../04_modeling/index) sections of the documentation.
+and [Modeling](../04_modeling/overview) sections of the documentation.
 
 
 ```eval_rst
@@ -147,5 +147,5 @@ The following sections of the documentation provide more detail on the analysis:
 
 - [Data](../02_data/data_folder): Everything you need to know about the data inputs and outputs in the analysis
 - [Data Processing](../03_processing/overview): The data processing pipeline
-- [Modeling](../04_modeling/index): The modeling pipeline
+- [Modeling](../04_modeling/overview): The modeling pipeline
 

@@ -14,7 +14,7 @@ The software for the pipeline is available in:
 
 `src/fyp_analysis/pipelines/data_processing/` ([link](https://github.com/PhiladelphiaController/five-year-plan-analysis/tree/main/src/fyp_analysis/pipelines/data_processing))
 
-## Stationarity
+## Calculating Stationarity
 
 One of the main outputs of this pipeline is the "stationarity guide," a spreadsheet with information
  for making each feature stationary. For each feature, the spreadsheet contains the following information:

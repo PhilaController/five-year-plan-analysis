@@ -64,7 +64,10 @@ The following sections provide more detailed information about each of these ste
    :maxdepth: 1
    :caption: Modeling
 
-   04_modeling/index
+   04_modeling/overview
+   04_modeling/steps
+   04_modeling/bestfit
+   04_modeling/results
 
 
 API documentation
