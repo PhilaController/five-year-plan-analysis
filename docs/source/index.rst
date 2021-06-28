@@ -43,6 +43,7 @@ The following sections provide more detailed information about each of these ste
 
    01_getting_started/installation
    01_getting_started/overview
+   01_getting_started/interactive
 
 .. toctree::
    :maxdepth: 1
@@ -56,7 +57,8 @@ The following sections provide more detailed information about each of these ste
    :maxdepth: 1
    :caption: Data Processing
 
-   03_processing/index
+   03_processing/overview
+   03_processing/steps
 
 .. toctree::
    :maxdepth: 1

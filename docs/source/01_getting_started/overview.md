@@ -21,7 +21,7 @@ manages the data inputs and outputs, and tracks any changes in the data and resu
 
 There are a few key concepts from kedro that are necessary to understand how this project works. This 
 section provides a brief introduction to this concepts. To fully understand kedro, it is worth 
-going through the [spaceflights tutorial](https://kedro.readthedocs.io/en/stable/03_tutorial/01_spaceflights_tutorial.html) on the kedro documentaiton. The full documentation is available [here](https://kedro.readthedocs.io/en/stable/index.html).
+going through the [spaceflights tutorial](https://kedro.readthedocs.io/en/stable/03_tutorial/01_spaceflights_tutorial.html) on the kedro documentation. The full documentation is available [here](https://kedro.readthedocs.io/en/stable/index.html).
 
 ## The Data Catalog
 
@@ -131,7 +131,7 @@ separate from each other. The outputs of the data processing pipeline are used a
 In the repository, the source code for the two pipelines are broken out separately in different folders 
 (see [here](https://github.com/PhiladelphiaController/five-year-plan-analysis/tree/main/src/fyp_analysis/pipelines)).
 
-More information is provided for each of these pipelines in the [Data Processing](../03_processing/index)
+More information is provided for each of these pipelines in the [Data Processing](../03_processing/overview)
 and [Modeling](../04_modeling/index) sections of the documentation.
 
 
@@ -146,6 +146,6 @@ and [Modeling](../04_modeling/index) sections of the documentation.
 The following sections of the documentation provide more detail on the analysis:
 
 - [Data](../02_data/data_folder): Everything you need to know about the data inputs and outputs in the analysis
-- [Data Processing](../03_processing/index): The data processing pipeline
+- [Data Processing](../03_processing/overview): The data processing pipeline
 - [Modeling](../04_modeling/index): The modeling pipeline
 
