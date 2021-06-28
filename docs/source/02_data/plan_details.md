@@ -5,7 +5,7 @@ in YAML files in the `data/01_raw/plans/` folder ([link](https://github.com/Phil
 For a given plan, there should be a separate file for the proposed 
 and adopted versions of the Plan.
 
-There is specific schema that must be used. See an example YAML file [here](https://github.com/PhiladelphiaController/five-year-plan-analysis/blob/main/data/01_raw/plans/FY22-FY26-Proposed.yml). This file looks like this:
+There is a specific schema that must be used. See an example YAML file [here](https://github.com/PhiladelphiaController/five-year-plan-analysis/blob/main/data/01_raw/plans/FY22-FY26-Proposed.yml). This file looks like this:
 
 ```yaml
 kind: Proposed
@@ -66,5 +66,5 @@ come from the net income portion
 ```eval_rst
 .. note::
     For more information about how to create this file for a specific Plan year, 
-    see the section on `updating data source. <./updates.html#plan-details>`_
+    see the section on `updating data sources. <./updates.html#plan-details>`_
 ```

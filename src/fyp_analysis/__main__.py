@@ -6,14 +6,9 @@ from pathlib import Path
 
 from kedro.framework.project import configure_project
 
-from .cli import run
+from . import cli
 
 
 def main():
-    """Run the fyp_analysis code."""
-    configure_project(Path(__file__).parent.name)
-    run()
-
-
-if __name__ == "__main__":
-    main()
+    """Command line tool for running the Five Year Plan analysis code."""
+    cli.cli()

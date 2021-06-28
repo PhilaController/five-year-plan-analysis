@@ -16,6 +16,8 @@ from kedro.framework.cli.utils import (
 from kedro.framework.session import KedroSession
 from kedro.utils import load_obj
 
+from . import historical
+
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 FROM_INPUTS_HELP = (
@@ -55,6 +57,12 @@ def _get_values_as_tuple(values: Iterable[str]) -> Tuple[str, ...]:
 @click.group(context_settings=CONTEXT_SETTINGS, name=__file__)
 def cli():
     """Command line tools for manipulating a Kedro project."""
+
+
+@cli.command()
+def update_quarterly_collections() -> None:
+    """Update quarterly historical collections data."""
+    historical.update_quarterly_collections()
 
 
 @cli.command()
@@ -114,6 +122,7 @@ def run(
     params,
 ):
     """Five Year Plan Analyais: Run a pipeline."""
+    print("DONE")
     if parallel and runner:
         raise KedroCliError(
             "Both --parallel and --runner options cannot be used together. "
