@@ -71,7 +71,7 @@ Revenue Schedule spreadsheet, typically named e.g., `FYXX-YY Revenues - Taxes.xl
 that is sent over from Budget. This spreadsheet includes revenue totals for each 
 year of the Plan.
 
-![Example Revenue Schedule for Five Year Plan](../../_static/img/revenue-schedule-example.png)
+![Example Revenue Schedule for Five Year Plan](/_static/img/revenue-schedule-example.png)
 
 ```eval_rst
 .. warning::
@@ -84,7 +84,7 @@ For the Sales tax, you must pull the **total City & School District** revenue to
 the Sales Tax revenue spreadsheet sent over by Budget. The file is typically named 
 `FYXX-YY Sales Tax Model.xlsx`. See the highlighted line (a) below.
 
-![Example Sales Tax Schedule for Five Year Plan](../../_static/img/sales-tax-example.png)
+![Example Sales Tax Schedule for Five Year Plan](/_static/img/sales-tax-example.png)
 
 ### Rates
 
@@ -97,11 +97,11 @@ sent over by Budget.
 
 In the Wage Tax model (typically named `FYXX-YY Wage Tax Model.xlsx`):
 
-![Wage Tax Rates for Five Year Plan](../../_static/img/wage-rates-example.png)
+![Wage Tax Rates for Five Year Plan](/_static/img/wage-rates-example.png)
 
 In the BIRT model (typically named `FYXX-YY BPT Model.xlsx` for "Business Privilege Tax"):
 
-![BIRT Rates for Five Year Plan](../../_static/img/birt-rates-example.png)
+![BIRT Rates for Five Year Plan](/_static/img/birt-rates-example.png)
 
 
 ```eval_rst
@@ -116,7 +116,7 @@ The Budget Office assumption for the resident/non-resident splits for the Wage &
 and Net Profits taxes can be found in the Wage Tax spreadsheet. These are assumed 
 to be constant over the 5 years of the Plan.
 
-![Resident/Non-residents Splits for Wage & NPT](../../_static/img/resident-splits.png)
+![Resident/Non-residents Splits for Wage & NPT](/_static/img/resident-splits.png)
 
 ### Net Income Fraction
 
@@ -124,7 +124,7 @@ The Budget Office assumption for the amount of BIRT revenue from the net income
 portion can be found in the BIRT spreadsheet. The fraction changes over the life of 
 the Plan.
 
-![Net Income Fraction for BIRT](../../_static/img/net-income-fraction-example.png)
+![Net Income Fraction for BIRT](/_static/img/net-income-fraction-example.png)
 
 
 ## Economic Indicators
