@@ -1,3 +1,4 @@
+"""The nodes in the data processing pipeline."""
 from typing import List
 
 import pandas as pd
@@ -38,7 +39,7 @@ def get_quarterly_averages(economic_indicators: pd.DataFrame) -> pd.DataFrame:
 
     Returns
     -------
-    The quarterly averaged indicatorsß
+    The quarterly averaged indicators
     """
     return economic_indicators.pipe(utils.get_faster_than_annual).pipe(
         utils.get_quarterly_average

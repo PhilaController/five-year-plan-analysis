@@ -1,3 +1,4 @@
+"""The function for creating the data processing pipeline."""
 from kedro.pipeline import Pipeline, node
 
 from .nodes import (
