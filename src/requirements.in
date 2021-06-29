@@ -4,8 +4,8 @@ flake8-docstrings
 darglint
 mypy
 pre-commit
-ipython
-jedi<0.18
+ipython==7.25
+jedi==0.18
 isort
 jupyter
 jupyter_client

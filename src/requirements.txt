@@ -178,7 +178,7 @@ ipython-genutils==0.2.0
     #   notebook
     #   qtconsole
     #   traitlets
-ipython==7.24.1
+ipython==7.25.0
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   ipykernel
@@ -189,7 +189,7 @@ ipywidgets==7.6.3
     # via jupyter
 isort==5.8.0
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
-jedi==0.17.2
+jedi==0.18.0
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   ipython
@@ -365,7 +365,7 @@ pandas==1.2.4
     #   statsmodels
 pandocfilters==1.4.3
     # via nbconvert
-parso==0.7.1
+parso==0.8.2
     # via jedi
 pathspec==0.8.1
     # via black
