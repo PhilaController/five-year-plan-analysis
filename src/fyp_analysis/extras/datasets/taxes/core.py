@@ -16,20 +16,7 @@ HISTORICAL_DIR = SRC_DIR / ".." / ".." / "data" / "01_raw" / "historical"
 
 
 @dataclass
-class _DataclassMixin:
-    """
-    Dataclass mixin to avoid mypy issue.
-
-    See https://github.com/python/mypy/issues/5374
-    """
-
-    latest_historical_year: int
-    projected_rates: pd.DataFrame
-    projected_revenues: pd.DataFrame
-    accrual_method: str = field(default="net", init=False)
-
-
-class QuarterlyTaxData(_DataclassMixin, abc.ABC):
+class QuarterlyTaxData(abc.ABC):
     """
     Abstract base class to load quarterly tax data.
 
@@ -48,6 +35,11 @@ class QuarterlyTaxData(_DataclassMixin, abc.ABC):
     accrual_method, optional
         how to handle accruals when loading historical data; either 'net' or 'quarters'
     """
+
+    latest_historical_year: int
+    projected_rates: pd.DataFrame
+    projected_revenues: pd.DataFrame
+    accrual_method: str = field(default="net", init=False)
 
     name: ClassVar[str] = ""
 
