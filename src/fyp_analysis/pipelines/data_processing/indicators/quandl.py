@@ -1,8 +1,8 @@
-import os
 from dataclasses import dataclass
 
 import pandas as pd
 import quandl
+from kedro.config import MissingConfigException
 
 from .core import DataSource
 
@@ -41,12 +41,15 @@ class DataSourceQuandl(DataSource):
         """Download data from Quandl."""
 
         # API key for QUANDL
-        QUANDL_API_KEY = os.environ.get("QUANDL_API_KEY")
+        QUANDL_API_KEY = self.credentials.get("QUANDL_API_KEY")
 
         # Make sure the API key is valid
         if QUANDL_API_KEY is None:
-            raise ValueError(
-                "Please set the 'QUANDL_API_KEY' variable in the .env file to download data from Quandl"
+            raise MissingConfigException(
+                (
+                    "Please set the 'QUANDL_API_KEY' variable conf/local/credentials.yml file. "
+                    "An API key can be obtained from: https://docs.quandl.com/docs"
+                )
             )
 
         return quandl.get(self.series_id, api_key=QUANDL_API_KEY)

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, List, Optional
 
 import pandas as pd
-from dotenv import load_dotenv
+from kedro.config import ConfigLoader, MissingConfigException
 from loguru import logger
 
 from fyp_analysis import SRC_DIR
@@ -71,8 +71,14 @@ class DataSource(_DataclassMixin, abc.ABC):
         if self.geography not in ALLOWED_GEO:
             raise ValueError(f"Allowed values for 'geography' arg: {ALLOWED_GEO}")
 
-        # Load the env variables
-        load_dotenv()
+        # Load the credentials
+        conf_paths = ["conf/base", "conf/local"]
+        conf_loader = ConfigLoader(conf_paths)
+
+        try:
+            self.credentials = conf_loader.get("credentials*", "credentials*/**")
+        except MissingConfigException:
+            self.credentials = {}
 
     @classmethod
     def __init_subclass__(cls, **kwargs):
@@ -196,7 +202,9 @@ def get_economic_indicators(
         return geography is None or d["geography"] == geography
 
     # Get the JSON data for all sources
-    SOURCES = [{**d, "cls": cls} for cls in DataSource.REGISTRY for d in cls.SOURCES]
+    SOURCES = [
+        {**d, "cls": cls} for cls in DataSource.REGISTRY for d in cls.get_sources()
+    ]
 
     NOW = datetime.datetime.now()
 

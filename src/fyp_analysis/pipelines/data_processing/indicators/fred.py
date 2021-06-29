@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 import fredapi
 import pandas as pd
+from kedro.config import MissingConfigException
 
 from .core import DataSource
 
@@ -40,12 +41,15 @@ class DataSourceFRED(DataSource):
         """Download data from FRED."""
 
         # API key for FRED
-        FRED_API_KEY = os.environ.get("FRED_API_KEY")
+        FRED_API_KEY = self.credentials.get("FRED_API_KEY")
 
         # Make sure the API key is valid
         if FRED_API_KEY is None:
-            raise ValueError(
-                "Please set the 'FRED_API_KEY' variable in the .env file to download data from FRED"
+            raise MissingConfigException(
+                (
+                    "Please set the 'FRED_API_KEY' variable conf/local/credentials.yml file. "
+                    "An API key can be obtained from: https://fred.stlouisfed.org/docs/api/api_key.html"
+                )
             )
 
         f = fredapi.Fred(api_key=FRED_API_KEY)
