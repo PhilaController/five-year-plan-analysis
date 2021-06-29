@@ -135,3 +135,10 @@ in the analysis. To get a fresh copy of the indicators downloaded locally, you
 can change the `fresh_indicators` parameter in the `conf/base/parameters/data_processing.yml`
 file to `True`. This will download the latest version of all indicators.
 
+You can also set the `fresh_indicators` parameter to `True` when running the
+data processing pipeline (see the run instructions [here](../03_processing/overview#running-the-pipeline)).
+
+```
+fyp-analysis run --pipeline dp --params fresh_indicators:True
+```
+

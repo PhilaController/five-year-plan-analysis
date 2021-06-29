@@ -36,7 +36,7 @@ the stationarity figure for the Wage Tax is:
 To run the pipeline, execute:
 
 ```
-fyp-analysis --pipelines dp
+fyp-analysis run --pipelines dp
 ```
 
 where `dp` is short for "data processing".

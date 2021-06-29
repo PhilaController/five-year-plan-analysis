@@ -36,7 +36,7 @@ parameters to generate the final fits.
 To run the modeling pipeline only, execute:
 
 ```
-fyp-analysis --pipelines mod
+fyp-analysis run --pipelines mod
 ```
 
 where `mod` is short for "modeling". 
@@ -45,7 +45,7 @@ You can also run both the data processing and modeling pipelines together.
 This is the default configuration if no extra command line arguments are passed:
 
 ```
-fyp-analysis
+fyp-analysis run
 ```
 
 ## Parameters
