@@ -4,5 +4,5 @@ from .core import (
     grid_search_var_model,
     run_possible_models,
 )
-from .utils import get_possible_endog_variables
+from .utils import aggregate_to_fiscal_year, get_possible_endog_variables
 from .viz import plot_forecast_results, plot_projection_comparison
