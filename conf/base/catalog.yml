@@ -59,6 +59,7 @@ final_unscaled_features:
   load_args:
     index_col: 0
     parse_dates: True
+  versioned: True
 
 final_scaled_features:
   type: pandas.CSVDataSet
@@ -68,6 +69,7 @@ final_scaled_features:
   load_args:
     index_col: 0
     parse_dates: True
+  versioned: True
 
 scaled_feature_correlations:
   type: pandas.ExcelDataSet
@@ -94,3 +96,43 @@ possible_endog_variables:
 plan_details:
   type: fyp_analysis.extras.datasets.PlanDetailsYAMLDataSet
   filepath: data/01_raw/plans/FY22-FY26-Proposed.yml
+
+wage_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/wage.json
+  versioned: True
+
+sales_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/sales.json
+  versioned: True
+
+net_income_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/net_income.json
+  versioned: True
+
+gross_receipts_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/gross_receipts.json
+  versioned: True
+
+rtt_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/rtt.json
+  versioned: True
+
+parking_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/parking.json
+  versioned: True
+
+amusement_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/amusement.json
+  versioned: True
+
+npt_fit_params:
+  type: json.JSONDataSet
+  filepath: data/04_model_input/fit_params/npt.json
+  versioned: True
