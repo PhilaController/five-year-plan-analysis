@@ -8,6 +8,7 @@ class AmusementTax(QuarterlyTaxData):
     """Amusement tax data."""
 
     name = "Amusement"
+    accrual_method = "quarters"
 
     def load_rates(self):
         """Load tax rates."""
