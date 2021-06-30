@@ -98,41 +98,41 @@ plan_details:
   filepath: data/01_raw/plans/FY22-FY26-Proposed.yml
 
 wage_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/wage.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/wage.pkl
   versioned: True
 
 sales_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/sales.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/sales.pkl
   versioned: True
 
 net_income_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/net_income.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/net_income.pkl
   versioned: True
 
 gross_receipts_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/gross_receipts.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/gross_receipts.pkl
   versioned: True
 
 rtt_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/rtt.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/rtt.pkl
   versioned: True
 
 parking_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/parking.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/parking.pkl
   versioned: True
 
 amusement_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/amusement.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/amusement.pkl
   versioned: True
 
 npt_fit_params:
-  type: json.JSONDataSet
-  filepath: data/04_model_input/fit_params/npt.json
+  type: pickle.PickleDataSet
+  filepath: data/04_model_input/fit_params/npt.pkl
   versioned: True
