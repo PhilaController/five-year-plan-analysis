@@ -1,12 +1,13 @@
 import itertools
 import multiprocessing as mp
-import os
-from os import stat
+import warnings
 from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import tqdm
+from loguru import logger
 from sklearn.model_selection import TimeSeriesSplit
 from statsmodels.tsa.vector_ar.var_model import VARResultsWrapper
 
@@ -287,28 +288,35 @@ def test_train_var_model(
     combined_mape = calculate_mape(forecasts, actuals)
 
     # Return
-    return {"mape_vector": mapes, "mape": combined_mape}
+    return {"mape_splits": mapes, "mape": combined_mape}
 
 
 def _grid_search_parallel(args):
     """Run the grid search in parallel."""
 
     # The arguments
-    (param_set, param_names, unscaled_features, preprocess, n_splits) = args
-
-    # Get the keyword parameters for this grid cell
-    kws = dict(zip(param_names, param_set))
+    (kws, unscaled_features, preprocess, n_splits) = args
 
     # Run test/train for this set of parameters
-    metrics = test_train_var_model(
-        unscaled_features,
-        preprocess,
-        n_splits=n_splits,
-        **kws,
-    )
+    metrics = None
+    with warnings.catch_warnings():
 
-    # Add the keywords
-    metrics.update(kws)
+        # Raise an error
+        warnings.filterwarnings("error")
+
+        # Catch warnings in case overflow runtime error is raised (bad params)
+        try:
+            metrics = test_train_var_model(
+                unscaled_features,
+                preprocess,
+                n_splits=n_splits,
+                **kws,
+            )
+
+            # Add the keywords
+            metrics.update(kws)
+        except Warning:
+            pass
 
     return metrics
 
@@ -316,7 +324,7 @@ def _grid_search_parallel(args):
 def grid_search_var_model(
     unscaled_features: pd.DataFrame,
     preprocess: PreprocessPipeline,
-    grid_params: Dict[str, Any],
+    all_grid_params: List[Dict[str, Any]],
     main_endog: str,
     n_splits: int,
     seed: int = 12345,
@@ -351,24 +359,8 @@ def grid_search_var_model(
     # Set the random seed
     np.random.seed(seed)
 
-    # Setup the grid
-    param_names = list(grid_params)
-    values = [grid_params[name] for name in param_names]
-
-    # Verify param names
-    required = ["endog_cols", "order", "max_fit_date"]
-    optional = ["exog_cols", "model_quarters"]
-    all_args = required + optional
-    if not all(col in param_names for col in required):
-        missing = set(required) - set(param_names)
-        raise ValueError(f"Missing required parameters: {missing}")
-    if not all(col in all_args for col in param_names):
-        extra = set(param_names) - set(all_args)
-        raise ValueError(f"Extra grid parameters provided: {extra}")
-
     # The other args
     args = (
-        param_names,
         unscaled_features,
         preprocess,
         n_splits,
@@ -376,11 +368,17 @@ def grid_search_var_model(
 
     # Run in parallel
     N = mp.cpu_count()
-    with mp.Pool(processes=1) as p:
-        fits = p.map(
-            _grid_search_parallel,
-            [tuple([param_set, *args]) for param_set in itertools.product(*values)],
-        )
+    logger.info(f"Running grid search in parallel with {N} processes")
+    with mp.Pool(processes=N) as p:
+
+        # Look over all parameter dictionaries
+        params = [tuple([param_set, *args]) for param_set in all_grid_params]
+
+        # Use tqdm to log a process bar
+        fits = list(tqdm.tqdm(p.imap(_grid_search_parallel, params), total=len(params)))
+
+    # Trim out any None metrics
+    fits = list(filter(lambda d: d is not None, fits))
 
     # Add the MAPE for the target column
     for f in fits:
@@ -388,6 +386,64 @@ def grid_search_var_model(
 
     # Return fits, sorted from best score to worst
     return sorted(fits, key=lambda x: x["target_mape"])
+
+
+def generate_grid_parameters(
+    main_endog: str,
+    other_endog: List[str],
+    orders: List[int],
+    grangers: pd.DataFrame,
+    max_fit_date: Union[str, List[str]],
+    cbo_columns: List[str],
+    alpha: float = 0.05,
+    max_other_endog: int = 1,
+    max_exog: int = 4,
+    model_quarters: Union[bool, List[bool]] = False,
+):
+
+    # Get the combo of possible endog variables
+    other_endog_combos = []
+    while max_other_endog > 0:
+        other_endog_combos += list(itertools.combinations(other_endog, max_other_endog))
+        max_other_endog -= 1
+
+    # Make sure we have lists
+    if not isinstance(model_quarters, list):
+        model_quarters = [model_quarters]
+    if not isinstance(max_fit_date, list):
+        max_fit_date = [max_fit_date]
+
+    # Loop over all possible endog combos
+    for cols in other_endog_combos:
+
+        # Endog cols
+        endog_cols = [main_endog] + list(cols)
+
+        # Get possible exog variables
+        possible_exog = get_possible_exog_variables(
+            grangers, endog_cols, cbo_columns, alpha=alpha
+        )
+
+        # Make exog grid
+        if max_exog > 0:
+            _max_exog = min(len(possible_exog), max_exog)
+            exog_cols = []
+            while _max_exog >= 0:
+                exog_cols += [
+                    list(l) for l in itertools.combinations(possible_exog, _max_exog)
+                ]
+                _max_exog -= 1
+        else:
+            exog_cols = []
+
+        # Make the dict of grid parameters
+        yield {
+            "order": orders,
+            "endog_cols": [endog_cols],
+            "exog_cols": exog_cols,
+            "model_quarters": model_quarters,
+            "max_fit_date": max_fit_date,
+        }
 
 
 def run_possible_models(
@@ -452,60 +508,40 @@ def run_possible_models(
         keyword parameters used in the fit; the list is sorted in order from best
         to worst fit based on the test sample score
     """
-    # Get the combo of possible endog variables
-    other_endog_combos = []
-    while max_other_endog > 0:
-        other_endog_combos += list(itertools.combinations(other_endog, max_other_endog))
-        max_other_endog -= 1
-
-    # Make sure we have lists
-    if not isinstance(model_quarters, list):
-        model_quarters = [model_quarters]
-    if not isinstance(max_fit_date, list):
-        max_fit_date = [max_fit_date]
-
     # Loop over all possible endog combos
-    all_fits = []
-    for cols in other_endog_combos:
 
-        # Endog cols
-        endog_cols = [main_endog] + list(cols)
+    all_grid_combos = []
+    for grid_params in generate_grid_parameters(
+        main_endog,
+        other_endog,
+        orders,
+        grangers,
+        max_fit_date=max_fit_date,
+        cbo_columns=cbo_columns,
+        alpha=alpha,
+        max_other_endog=max_other_endog,
+        max_exog=max_exog,
+        model_quarters=model_quarters,
+    ):
 
-        # Get possible exog variables
-        possible_exog = get_possible_exog_variables(
-            grangers, endog_cols, cbo_columns, alpha=alpha
-        )
+        # Get the grid combos
+        param_names = list(grid_params)
+        all_grid_combos += [
+            dict(zip(param_names, d)) for d in itertools.product(*grid_params.values())
+        ]
 
-        # Make exog grid
-        if max_exog > 0:
-            max_exog = min(len(possible_exog), max_exog)
-            exog_cols = []
-            while max_exog > 0:
-                exog_cols += [
-                    list(l) for l in itertools.combinations(possible_exog, max_exog)
-                ]
-                max_exog -= 1
-        else:
-            exog_cols = [[]]
+    # Log
+    logger.info(f"Running fits for {len(all_grid_combos)} sets of parameters")
 
-        # Make the dict of grid parameters
-        grid_params = {
-            "order": orders,
-            "endog_cols": [endog_cols],
-            "exog_cols": exog_cols,
-            "model_quarters": model_quarters,
-            "max_fit_date": max_fit_date,
-        }
-
-        # Do the grid search and save the fits
-        all_fits += grid_search_var_model(
-            unscaled_features,
-            preprocess,
-            grid_params,
-            main_endog,
-            n_splits=n_splits,
-            seed=seed,
-        )
+    # Now get all of the fits
+    all_fits = grid_search_var_model(
+        unscaled_features,
+        preprocess,
+        all_grid_combos,
+        main_endog,
+        n_splits=n_splits,
+        seed=seed,
+    )
 
     return sorted(all_fits, key=lambda x: x["target_mape"])
 
