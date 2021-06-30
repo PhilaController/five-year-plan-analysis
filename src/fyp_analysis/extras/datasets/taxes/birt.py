@@ -85,7 +85,7 @@ class BIRT(QuarterlyTaxData):
         # Combine
         out = (
             pd.merge(
-                self.mayor_projections,
+                self.budget_projections,
                 revenue.reset_index(name=f"{self.name}Revenue"),
                 on="fiscal_year",
                 how="outer",
