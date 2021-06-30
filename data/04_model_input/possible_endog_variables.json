@@ -29,13 +29,14 @@
     "WageBase",
     "YieldCurve",
     "UnemploymentPhilly",
-    "NonresidentialInvestment"
+    "NonresidentialInvestment",
+    "ContinuedClaimsPA"
   ],
   "D.Ln.RTTBase": [
     "RealDisposablePersonalIncome",
     "ConsumerConfidence",
-    "AmusementBase",
     "BuildingPermitsPhillyMSA",
+    "AmusementBase",
     "PPI",
     "NYCGasPrice",
     "PrimeEPOP",
@@ -50,8 +51,7 @@
   "D.Ln.SalesBase": [
     "WageBase",
     "FHFAHousePriceIndex",
-    "PrimeEPOP",
-    "ContinuedClaimsPA"
+    "PrimeEPOP"
   ],
   "D.Ln.WageBase": [
     "ParkingBase",
