@@ -160,7 +160,7 @@ class PlanDetailsYAMLDataSet(YAMLDataSet):
             if isinstance(value, list):
                 data["rates"][tax_name] = {"rate": value}
             elif isinstance(value, dict):
-                data["rates"][tax_name] = {f"rate_{k}": v for (k, v) in value.items()}
+                data["rates"][tax_name] = {f"{k}_rate": v for (k, v) in value.items()}
             else:
                 raise ValueError("Error parsing rate info in YAML file.")
 
