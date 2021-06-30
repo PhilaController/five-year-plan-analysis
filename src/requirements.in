@@ -6,6 +6,7 @@ mypy
 pre-commit
 ipython==7.25
 jedi==0.18
+git+git://github.com/ipython/ipykernel@6.0.0rc2#egg=ipykernel
 isort
 jupyter
 jupyter_client
@@ -39,6 +40,6 @@ nbsphinx
 recommonmark
 sphinx-autodoc-typehints
 sphinx_copybutton
-ipykernel
 sphinx-rtd-theme
 numpydoc
+tqdm
