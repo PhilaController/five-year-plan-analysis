@@ -21,6 +21,7 @@ def _get_endog_exog_variables(
     endog_cols: List[str],
     exog_cols: List[str],
     model_quarters: bool,
+    model_covid: bool,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Internal function to prepare variables for a VAR fit by scaling and
@@ -67,6 +68,22 @@ def _get_endog_exog_variables(
         else:
             exog = pd.concat([exog, exog_q], axis=1)
 
+    # Model covid
+    if model_covid:
+        exog_covid = (
+            pd.Series(
+                (endog.index >= "2020-04-01") & (endog.index < "2021-07-01"),
+                name="is_covid",
+            )
+            .astype(int)
+            .to_frame()
+            .set_index(endog.index)
+        )
+        if exog is None:
+            exog = exog_covid
+        else:
+            exog = pd.concat([exog, exog_covid], axis=1)
+
     return scaled_features, endog, exog
 
 
@@ -81,6 +98,7 @@ def fit_var_model(
     exog_cols: List[str] = [],
     steps: int = 20,
     model_quarters: bool = False,
+    model_covid: bool = False,
 ) -> Tuple[VARResultsWrapper, pd.DataFrame]:
     """
     Fit a VAR(X) model using statsmodels.
@@ -127,6 +145,7 @@ def fit_var_model(
         endog_cols,
         exog_cols,
         model_quarters,
+        model_covid,
     )
 
     # Run the VAR model
@@ -156,6 +175,22 @@ def fit_var_model(
             future_exog = future_exog_q
         else:
             future_exog = pd.concat([future_exog, future_exog_q], axis=1)
+
+    # Model future covid
+    if model_covid:
+        future_exog_covid = (
+            pd.Series(
+                (future_dates >= "2020-04-01") & (future_dates < "2021-07-01"),
+                name="is_covid",
+            )
+            .astype(int)
+            .to_frame()
+            .set_index(future_dates)
+        )
+        if future_exog is None:
+            future_exog = future_exog_covid
+        else:
+            future_exog = pd.concat([future_exog, future_exog_covid], axis=1)
 
     kws = {}
     if future_exog is not None:
@@ -190,6 +225,7 @@ def test_train_var_model(
     exog_cols: List[str] = [],
     n_splits: int = 3,
     model_quarters: bool = False,
+    model_covid: bool = False,
 ) -> Tuple[VARResultsWrapper, pd.DataFrame, pd.DataFrame]:
     """Do a test/train split and evaluate the model on the test set.
 
@@ -229,6 +265,7 @@ def test_train_var_model(
         endog_cols,
         exog_cols,
         model_quarters,
+        model_covid,
     )
 
     # Loop over timne series splits
@@ -399,6 +436,7 @@ def generate_grid_parameters(
     max_other_endog: int = 1,
     max_exog: int = 4,
     model_quarters: Union[bool, List[bool]] = False,
+    model_covid: Union[bool, List[bool]] = False,
 ):
 
     # Get the combo of possible endog variables
@@ -410,6 +448,8 @@ def generate_grid_parameters(
     # Make sure we have lists
     if not isinstance(model_quarters, list):
         model_quarters = [model_quarters]
+    if not isinstance(model_covid, list):
+        model_covid = [model_covid]
     if not isinstance(max_fit_date, list):
         max_fit_date = [max_fit_date]
 
@@ -442,6 +482,7 @@ def generate_grid_parameters(
             "endog_cols": [endog_cols],
             "exog_cols": exog_cols,
             "model_quarters": model_quarters,
+            "model_covid": model_covid,
             "max_fit_date": max_fit_date,
         }
 
@@ -461,6 +502,7 @@ def run_possible_models(
     n_splits: int = 3,
     seed: int = 12345,
     model_quarters: Union[bool, List[bool]] = False,
+    model_covid: Union[bool, List[bool]] = False,
 ) -> List[Dict[str, Any]]:
     """
     Run all possible models and return the VAR fits.
@@ -522,6 +564,7 @@ def run_possible_models(
         max_other_endog=max_other_endog,
         max_exog=max_exog,
         model_quarters=model_quarters,
+        model_covid=model_covid,
     ):
 
         # Get the grid combos
