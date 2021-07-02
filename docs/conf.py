@@ -44,6 +44,8 @@ extensions = [
     "sphinx_copybutton",
 ]
 
+autodoc_mock_imports = ["fbprophet", "pystan"]
+
 # enable autosummary plugin (table of contents for modules/classes/class
 # methods)
 autosummary_generate = True

@@ -38,3 +38,10 @@ types-click
 tqdm
 pystan<3
 fbprophet
+sphinx
+nbsphinx
+recommonmark
+sphinx-autodoc-typehints
+sphinx_copybutton
+sphinx-rtd-theme
+numpydoc
