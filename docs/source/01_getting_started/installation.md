@@ -69,7 +69,20 @@ git pull origin main
 ```
 
 If you have any local changes, this command could raise merge conflicts that you will 
-have to resolve manually.
+have to resolve manually. You check for local changes via:
+
+```
+git status
+```
+
+If you want to save your local changes, but get a clean git status, you can "stash" them:
+
+```
+git stash
+```
+
+If you "stash" your changes before running "git pull origin main" you will avoid 
+any merge conflicts when syncing the code. 
 
 
 ## Updating the Installed Dependencies
