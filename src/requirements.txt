@@ -4,6 +4,10 @@
 #
 #    pip-compile /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 #
+aiohttp==3.7.4.post0
+    # via
+    #   httpstan
+    #   pystan
 alabaster==0.7.12
     # via sphinx
 anyconfig==0.10.1
@@ -13,6 +17,7 @@ anyio==3.2.0
 appdirs==1.4.4
     # via
     #   black
+    #   httpstan
     #   virtualenv
 appnope==0.1.2
     # via ipython
@@ -24,8 +29,11 @@ arrow==1.1.0
     # via jinja2-time
 async-generator==1.10
     # via nbclient
+async-timeout==3.0.1
+    # via aiohttp
 attrs==21.2.0
     # via
+    #   aiohttp
     #   desert
     #   fiona
     #   jsonschema
@@ -69,6 +77,7 @@ cfgv==3.3.0
     # via pre-commit
 chardet==4.0.0
     # via
+    #   aiohttp
     #   binaryornot
     #   pdfminer.six
     #   requests
@@ -87,6 +96,10 @@ click==7.1.2
     #   pip-tools
 cligj==0.7.2
     # via fiona
+clikit==0.6.2
+    # via pystan
+cmdstanpy==0.9.5
+    # via fbprophet
 colorama==0.4.4
     # via crayons
 colormath==3.0.0
@@ -95,12 +108,20 @@ commonmark==0.9.1
     # via recommonmark
 configparser==5.0.2
     # via webdriver-manager
+convertdate==2.3.2
+    # via
+    #   fbprophet
+    #   holidays
 cookiecutter==1.7.3
     # via kedro
+crashtest==0.3.1
+    # via clikit
 crayons==0.4.0
     # via webdriver-manager
 cycler==0.10.0
     # via matplotlib
+cython==0.29.23
+    # via fbprophet
 darglint==1.8.0
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 debugpy==1.3.0
@@ -127,8 +148,12 @@ dynaconf==3.1.4
     # via kedro
 entrypoints==0.3
     # via nbconvert
+ephem==4.0.0.2
+    # via lunarcalendar
 et-xmlfile==1.1.0
     # via openpyxl
+fbprophet==0.7.1
+    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 filelock==3.0.12
     # via virtualenv
 fiona==1.8.20
@@ -149,12 +174,19 @@ gitdb==4.0.7
     # via gitpython
 gitpython==3.1.18
     # via kedro
+hijri-converter==2.1.3
+    # via holidays
+holidays==0.11.1
+    # via fbprophet
+httpstan==4.5.0
+    # via pystan
 identify==2.2.10
     # via pre-commit
 idna==2.10
     # via
     #   anyio
     #   requests
+    #   yarl
 imagesize==1.2.0
     # via sphinx
 inflection==0.5.1
@@ -264,16 +296,24 @@ kedro==0.17.4
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 kiwisolver==1.3.1
     # via matplotlib
+korean-lunar-calendar==0.2.1
+    # via holidays
 loguru==0.5.3
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   phl-budget-data
+lunarcalendar==0.0.9
+    # via fbprophet
+lz4==3.1.3
+    # via httpstan
 markupsafe==2.0.1
     # via jinja2
 marshmallow==3.12.1
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   desert
+    #   httpstan
+    #   webargs
 matplotlib-inline==0.1.2
     # via
     #   ipykernel
@@ -281,6 +321,7 @@ matplotlib-inline==0.1.2
 matplotlib==3.4.2
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+    #   fbprophet
     #   phila-style
     #   seaborn
 mccabe==0.6.1
@@ -289,6 +330,10 @@ mistune==0.8.4
     # via nbconvert
 more-itertools==8.8.0
     # via quandl
+multidict==5.1.0
+    # via
+    #   aiohttp
+    #   yarl
 munch==2.5.0
     # via fiona
 mypy-extensions==0.4.3
@@ -334,11 +379,15 @@ notebook==6.4.0
     #   widgetsnbextension
 numpy==1.20.3
     # via
+    #   cmdstanpy
     #   colormath
+    #   fbprophet
+    #   httpstan
     #   matplotlib
     #   pandas
     #   patsy
     #   phl-budget-data
+    #   pystan
     #   quandl
     #   scikit-learn
     #   scipy
@@ -359,6 +408,8 @@ pandas==1.2.4
     # via
     #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
     #   bls
+    #   cmdstanpy
+    #   fbprophet
     #   fredapi
     #   geopandas
     #   phl-budget-data
@@ -369,6 +420,8 @@ pandocfilters==1.4.3
     # via nbconvert
 parso==0.8.2
     # via jedi
+pastel==0.2.1
+    # via clikit
 pathspec==0.8.1
     # via black
 patsy==0.5.1
@@ -431,6 +484,10 @@ pygments==2.9.0
     #   nbconvert
     #   qtconsole
     #   sphinx
+pylev==1.4.0
+    # via clikit
+pymeeus==0.5.11
+    # via convertdate
 pyparsing==2.4.7
     # via
     #   matplotlib
@@ -439,13 +496,20 @@ pyproj==3.1.0
     # via geopandas
 pyrsistent==0.17.3
     # via jsonschema
+pysimdjson==3.2.0
+    # via pystan
+pystan==3.2.0
+    # via fbprophet
 pytest==6.2.4
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 python-dateutil==2.8.1
     # via
     #   arrow
     #   botocore
+    #   fbprophet
+    #   holidays
     #   jupyter-client
+    #   lunarcalendar
     #   matplotlib
     #   pandas
     #   quandl
@@ -458,6 +522,8 @@ python-slugify==5.0.2
 pytz==2021.1
     # via
     #   babel
+    #   convertdate
+    #   lunarcalendar
     #   pandas
 pyyaml==5.4.1
     # via
@@ -505,6 +571,8 @@ send2trash==1.5.0
     # via
     #   jupyter-server
     #   notebook
+setuptools-git==1.2
+    # via fbprophet
 shapely==1.7.1
     # via geopandas
 six==1.16.0
@@ -514,6 +582,7 @@ six==1.16.0
     #   cookiecutter
     #   cycler
     #   fiona
+    #   holidays
     #   jsonschema
     #   munch
     #   patsy
@@ -593,7 +662,9 @@ tornado==6.1
     #   notebook
     #   terminado
 tqdm==4.61.1
-    # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+    # via
+    #   -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+    #   fbprophet
 traitlets==5.0.5
     # via
     #   ipykernel
@@ -613,6 +684,7 @@ types-click==7.1.2
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
 typing-extensions==3.10.0.0
     # via
+    #   aiohttp
     #   mypy
     #   typing-inspect
 typing-inspect==0.7.1
@@ -628,6 +700,8 @@ wand==0.6.6
     # via pdfplumber
 wcwidth==0.2.5
     # via prompt-toolkit
+webargs==7.0.1
+    # via httpstan
 webdriver-manager==3.4.2
     # via phl-budget-data
 webencodings==0.5.1
@@ -640,6 +714,8 @@ widgetsnbextension==3.5.1
     # via ipywidgets
 xlsxwriter==1.4.3
     # via -r /Users/nicholashand/LocalWork/FiveYearPlan/Analysis/five-year-plan-analysis/src/requirements.in
+yarl==1.6.3
+    # via aiohttp
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

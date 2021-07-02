@@ -43,3 +43,5 @@ sphinx_copybutton
 sphinx-rtd-theme
 numpydoc
 tqdm
+pystan<3
+fbprophet
