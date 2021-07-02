@@ -598,6 +598,7 @@ def get_forecasts_from_fits(
     plan_start_year: int,
     cbo_data: pd.DataFrame,
     max_fits: int = 1,
+    average: bool = False,
 ) -> Tuple[pd.DataFrame, List[Dict[str, Any]]]:
     """
     Calculate the average forecast from a list of fits.
@@ -660,5 +661,11 @@ def get_forecasts_from_fits(
 
     # Reset column names
     combined_forecasts.columns = list(range(max_fits))
+
+    # Take the average?
+    if average:
+        combined_forecasts = (
+            combined_forecasts.mean(axis=1).squeeze().rename(main_endog)
+        )
 
     return combined_forecasts
