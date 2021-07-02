@@ -185,7 +185,9 @@ def get_stationary_guide(features: pd.DataFrame) -> pd.DataFrame:
     return _get_stationary_guide(features)
 
 
-def get_final_unscaled_features(features: pd.DataFrame, min_year: int) -> pd.DataFrame:
+def get_final_unscaled_features(
+    features: pd.DataFrame, plan_start_year: int, min_year: int
+) -> pd.DataFrame:
     """
     Get the final unscaled features to input into model.
 
@@ -200,7 +202,8 @@ def get_final_unscaled_features(features: pd.DataFrame, min_year: int) -> pd.Dat
     -------
     The final unscaled data frame of features
     """
-    return get_selected_features(features, min_year)
+    end_date = f"{plan_start_year-1}-06-30"
+    return get_selected_features(features, min_year).loc[:end_date]
 
 
 def get_final_scaled_features(
