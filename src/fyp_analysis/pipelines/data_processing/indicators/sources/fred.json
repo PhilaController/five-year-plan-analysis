@@ -414,5 +414,13 @@
         "frequency": "quarterly",
         "description": "Private Residential Fixed Investment",
         "seas_adjusted": true
+    },
+    {
+        "name": "TotalBusinessSales",
+        "series_id": "TOTBUSSMSA",
+        "geography": "national",
+        "frequency": "monthly",
+        "description": "Total Business Sales",
+        "seas_adjusted": true
     }
 ]
