@@ -36,8 +36,8 @@ phila-style
 git+git://github.com/PhiladelphiaController/phl-budget-data@main#egg=phl_budget_data
 types-click
 tqdm
-pystan<3
-fbprophet
+# pystan<3
+# fbprophet
 sphinx
 nbsphinx
 recommonmark
