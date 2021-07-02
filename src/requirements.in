@@ -35,13 +35,6 @@ carto2gpd
 phila-style
 git+git://github.com/PhiladelphiaController/phl-budget-data@main#egg=phl_budget_data
 types-click
-sphinx
-nbsphinx
-recommonmark
-sphinx-autodoc-typehints
-sphinx_copybutton
-sphinx-rtd-theme
-numpydoc
 tqdm
 pystan<3
 fbprophet
