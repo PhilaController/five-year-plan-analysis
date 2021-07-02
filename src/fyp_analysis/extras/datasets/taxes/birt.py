@@ -39,9 +39,9 @@ class BIRT(QuarterlyTaxData):
         ).assign(
             GrossReceiptsRevenue=lambda df: df.BIRTRevenue * df.gross_receipts_fraction,
             GrossReceiptsBase=lambda df: df.GrossReceiptsRevenue
-            / df.gross_receipts_rate,
+            / df.rate_gross_receipts,
             NetIncomeRevenue=lambda df: df.BIRTRevenue * df.net_income_fraction,
-            NetIncomeBase=lambda df: df.NetIncomeRevenue / df.net_income_rate,
+            NetIncomeBase=lambda df: df.NetIncomeRevenue / df.rate_net_income,
         )
 
     def tax_base_to_revenue(self, tax_base, kind):
@@ -52,7 +52,7 @@ class BIRT(QuarterlyTaxData):
             raise ValueError("Input tax base should be aggregated by fiscal year")
 
         # Get the rates / fraction
-        rate = self.rates.set_index("fiscal_year")[f"{kind}_rate"]
+        rate = self.rates.set_index("fiscal_year")[f"rate_{kind}"]
 
         # Merge
         data = pd.merge(
@@ -62,7 +62,7 @@ class BIRT(QuarterlyTaxData):
             right_index=True,
         )
         name = "GrossReceipts" if kind == "gross_receipts" else "NetIncome"
-        return (data[tax_base.name] * data[f"{kind}_rate"]).rename(
+        return (data[tax_base.name] * data[f"rate_{kind}"]).rename(
             f"{self.name}Revenue"
         )
 
