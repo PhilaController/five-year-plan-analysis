@@ -213,6 +213,7 @@ def fit_var_model(
 
 
 def calculate_mape(forecast, actual):
+    """Calculate the Mean Absolute Percent Error (MAPE)."""
     return ((forecast - actual).abs() / actual.abs()).mean()
 
 
@@ -589,7 +590,7 @@ def run_possible_models(
     return sorted(all_fits, key=lambda x: x["target_mape"])
 
 
-def get_avg_forecast_from_fits(
+def get_forecasts_from_fits(
     unscaled_features: pd.DataFrame,
     preprocess: PreprocessPipeline,
     fits: List[Dict[str, Any]],
@@ -635,7 +636,7 @@ def get_avg_forecast_from_fits(
         all_params.append(params)
 
         # Do the fit
-        result, forecast = fit_var_model(
+        _, forecast = fit_var_model(
             unscaled_features,
             preprocess,
             cbo_data=cbo_data,
@@ -653,11 +654,11 @@ def get_avg_forecast_from_fits(
         forecasts.append(F)
 
     # Average the forecasts
-    avg_forecast = (
-        pd.concat(forecasts, axis=1)
-        .mean(axis=1)
-        .rename_axis("fiscal_year", index=0)
-        .rename(main_endog)
+    combined_forecasts = pd.concat(forecasts, axis=1).rename_axis(
+        "fiscal_year", index=0
     )
 
-    return avg_forecast, all_params
+    # Reset column names
+    combined_forecasts.columns = list(range(max_fits))
+
+    return combined_forecasts

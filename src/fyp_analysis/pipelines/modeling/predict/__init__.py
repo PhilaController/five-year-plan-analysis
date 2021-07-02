@@ -1,7 +1,7 @@
 from .core import (
     fit_var_model,
     generate_grid_parameters,
-    get_avg_forecast_from_fits,
+    get_forecasts_from_fits,
     grid_search_var_model,
     run_possible_models,
 )
