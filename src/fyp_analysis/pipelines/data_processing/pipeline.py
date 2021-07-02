@@ -58,7 +58,11 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=get_final_unscaled_features,
-                inputs=["features_and_bases_sa", "params:min_feature_year"],
+                inputs=[
+                    "features_and_bases_sa",
+                    "params:plan_start_year",
+                    "params:min_feature_year",
+                ],
                 outputs="final_unscaled_features",
                 name="final_unscaled_features_node",
             ),
