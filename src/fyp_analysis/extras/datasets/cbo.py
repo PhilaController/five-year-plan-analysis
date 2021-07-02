@@ -51,6 +51,7 @@ def load_cbo_data(date="latest"):
         "FHFA House Price Index, Purchase Only": "FHFAHousePriceIndex",
         "Unemployment Rate, Civilian, 16 Years or Older": "UnemploymentRate",
         "Employment, Total Nonfarm (Establishment Survey)": "NonfarmEmployment",
+        "Employment, Total Nonfarm (Establishment survey)": "NonfarmEmployment",
         "10-Year Treasury Note": "10YearTreasury",
         "3-Month Treasury Bill": "3MonthTreasury",
         "Federal Funds Rate": "FedFundsRate",
@@ -62,11 +63,23 @@ def load_cbo_data(date="latest"):
         "Residential fixed investment": "ResidentialInvestment",
     }
 
+    # The names of the indicators to search for
+    indicators = list(rename.keys())
+    num_columns = len(list(set(rename.values())))
+
+    # Rename first two columns
+    X = cbo.rename(columns={"Unnamed: 1": "var1", "Unnamed: 2": "var2"}).assign(
+        var1=lambda df: df["var1"].fillna(df["var2"]).str.strip()
+    )
+
+    # Do we have all of the indicators
+    # NOTE: we drop duplicates here, keeping the "Nominal" and removing the "Real" duplicates
+    matches = X.loc[X["var1"].str.strip().isin(indicators)]["var1"].drop_duplicates()
+    assert len(matches) == num_columns
+
     # Format
     X = (
-        cbo.loc[[5, 40, 44, 50, 55, 57, 61, 67, 80, 81, 82, 85, 89, 103, 109, 113, 115]]
-        .rename(columns={"Unnamed: 1": "var1", "Unnamed: 2": "var2"})
-        .assign(var1=lambda df: df["var1"].fillna(df["var2"]))
+        X.loc[matches.index]
         .drop(labels=["var2", "Units"], axis=1)
         .melt(id_vars=["var1"], var_name="Date")
         .assign(
