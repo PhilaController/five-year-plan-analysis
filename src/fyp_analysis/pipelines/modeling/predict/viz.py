@@ -227,7 +227,7 @@ def plot_projection_differences(
 
         for i, (yr, value) in enumerate(diff.iteritems()):
             va = "top" if value < 0 else "bottom"
-            offset = -0.5 if value < 0.5 else 1
+            offset = -0.25 if value < 0 else 0.25
             ax.text(
                 i,
                 value + offset,
