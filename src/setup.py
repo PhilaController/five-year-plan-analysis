@@ -16,7 +16,8 @@ setup(
     entry_points={"console_scripts": [entry_point]},
     package_data={
         "fyp_analysis": [
-            "fyp_analysis/pipelines/data_processing/indicators/sources/*json"
+            "fyp_analysis/pipelines/data_processing/indicators/sources/*.json",
+            "fyp_analysis/templates/*.xlsx",
         ]
     },
     include_package_data=True,
