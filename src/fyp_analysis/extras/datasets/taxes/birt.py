@@ -66,7 +66,7 @@ class BIRT(QuarterlyTaxData):
             f"{self.name}Revenue"
         )
 
-    def get_budget_comparison(self, *tax_bases):
+    def tax_bases_to_revenue(self, *tax_bases):
         """Get the comparison between input tax base and mayor projections"""
 
         # Check input
@@ -81,6 +81,14 @@ class BIRT(QuarterlyTaxData):
         )
         net_income = self.tax_base_to_revenue(tax_bases["NetIncomeBase"], "net_income")
         revenue = gross_receipts + net_income
+
+        return revenue
+
+    def get_budget_comparison(self, *tax_bases):
+        """Get the comparison between input tax base and mayor projections"""
+
+        # Convert to revenue
+        revenue = self.tax_bases_to_revenue(*tax_bases)
 
         # Combine
         out = (
