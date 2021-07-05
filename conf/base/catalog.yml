@@ -136,3 +136,22 @@ npt_fit_params:
   type: pickle.PickleDataSet
   filepath: data/04_model_input/fit_params/npt.pkl
   versioned: True
+
+tax_base_forecasts:
+  type: pandas.CSVDataSet
+  filepath: data/06_model_output/final_tax_bases.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
+    parse_dates: True
+  versioned: True
+
+tax_revenue_forecasts:
+  type: pandas.CSVDataSet
+  filepath: data/06_model_output/final_tax_revenues.csv
+  save_args:
+    index: False
+  load_args:
+    parse_dates: False
+  versioned: True
