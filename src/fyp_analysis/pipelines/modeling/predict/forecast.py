@@ -233,7 +233,7 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
     ws = book["Revenue by FY"]
     for yr in range(plan_start_year, plan_start_year + 5):
         ws[f"A{row}"] = f"FY {yr}"
-        row += 12
+        row += 13
 
     # Do the summary too
     ws[f"A{row}"] = f"FY {plan_start_year} - FY {plan_start_year+4}"
@@ -242,8 +242,9 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
     # Section headers on SECOND SHEET
     # --------------------------------
     start = 7
+    num_sections = 10
     ws = book["Revenue by Tax"]
-    for n in range(9):
+    for n in range(num_sections):
         row = start + 8 * n
         for i, yr in enumerate(range(plan_start_year, plan_start_year + 5)):
             ws[f"A{row + i}"] = f"FY {yr}"
@@ -252,8 +253,9 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
     # Section headers on THIRD SHEET
     # --------------------------------
     start = 9
+    num_sections = 8
     ws = book["Growth by Tax"]
-    for n in range(7):
+    for n in range(num_sections):
         row = start + 7 * n
         for i, yr in enumerate(range(plan_start_year, plan_start_year + 5)):
             ws[f"B{row + i}"] = f"FY {yr}"
@@ -265,7 +267,7 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
     ws = book["Growth by Year"]
     for yr in range(plan_start_year, plan_start_year + 5):
         ws[f"B{row}"] = f"FY {yr}"
-        row += 9
+        row += 10
 
     # Update the headers
     sheets = ["Growth by Tax", "Growth by Year"]
