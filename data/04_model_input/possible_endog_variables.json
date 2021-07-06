@@ -1,0 +1,66 @@
+{
+  "D.Ln.AmusementBase": [
+    "WageBase",
+    "RTTBase",
+    "PersonalSavingsRate",
+    "GovtSocialBenefits",
+    "HousingSupply",
+    "3MonthTreasury",
+    "UnemploymentPhilly",
+    "PPI",
+    "NYCGasPrice"
+  ],
+  "D.GrossReceiptsBase": [
+    "NetIncomeBase"
+  ],
+  "D.NetIncomeBase": [
+    "GrossReceiptsBase"
+  ],
+  "D.NPTBase": [
+    "MedianHomeValuePhilly",
+    "3MonthTreasury",
+    "GDPPriceIndex"
+  ],
+  "D.Ln.ParkingBase": [
+    "NYCGasPrice",
+    "RTTBase",
+    "GovtSocialBenefits",
+    "PPI",
+    "WageBase",
+    "YieldCurve",
+    "UnemploymentPhilly",
+    "NonresidentialInvestment",
+    "ContinuedClaimsPA"
+  ],
+  "D.Ln.RTTBase": [
+    "RealDisposablePersonalIncome",
+    "ConsumerConfidence",
+    "AmusementBase",
+    "BuildingPermitsPhillyMSA",
+    "PPI",
+    "NYCGasPrice",
+    "PrimeEPOP",
+    "ParkingBase",
+    "GovtSocialBenefits",
+    "SahmRule",
+    "ContinuedClaimsPA",
+    "WageBase",
+    "SP500",
+    "InitialClaimsPA"
+  ],
+  "D.Ln.SalesBase": [
+    "WageBase",
+    "FHFAHousePriceIndex",
+    "PrimeEPOP"
+  ],
+  "D.Ln.WageBase": [
+    "AmusementBase",
+    "ParkingBase",
+    "AlcoholSales",
+    "RTTBase",
+    "ContinuedClaimsPA",
+    "InitialClaimsPA",
+    "NYCGasPrice",
+    "SalesBase"
+  ]
+}
