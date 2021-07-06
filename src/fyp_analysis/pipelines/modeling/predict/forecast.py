@@ -185,6 +185,7 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
 
         # Trim by fiscal year
         X = tax_revenues.query(f"fiscal_year >= {plan_start_year-1}")
+        Y = tax_bases.query(f"fiscal_year >= {plan_start_year-1}")
 
         # Reorder rows and columns
         X = (
@@ -197,7 +198,7 @@ def report_forecast_results(plan_start_year, tax_revenues, tax_bases):
         X.to_excel(writer, sheet_name="Revenue Data", index=False)
 
         # Re-order the columns
-        Y = tax_bases[
+        Y = Y[
             [
                 "WageBase",
                 "SalesBase",
