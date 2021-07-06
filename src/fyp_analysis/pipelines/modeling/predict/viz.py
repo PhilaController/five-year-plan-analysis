@@ -132,6 +132,7 @@ def plot_projection(
             mec=color,
             mfc="white",
             label="",
+            clip_on=False,
             **kws,
         )
 
@@ -146,6 +147,7 @@ def plot_projection(
             mec=color,
             mfc="white",
             label="Per Controller",
+            clip_on=False,
             **kws,
         )
 
@@ -158,6 +160,7 @@ def plot_projection(
             mec=color,
             mfc="white",
             label="Per Five Year Plan",
+            clip_on=False,
             **kws,
         )
 
@@ -165,14 +168,14 @@ def plot_projection(
         ax.set_yticks(ax.get_yticks())
         ax.set_yticklabels([f"${x:,.0f}M" for x in ax.get_yticks()], fontsize=11)
 
-        ax.set_xlim(start_year - 0.5, plan_start_year + 4.5)
+        ax.set_xlim(start_year, plan_start_year + 4)
         ax.set_xticks(ax.get_xticks())
         ax.set_xticklabels([f"{x:.0f}" for x in ax.get_xticks()])
 
         ax.legend(
             loc="lower center",
             bbox_transform=ax.transAxes,
-            bbox_to_anchor=(0.5, 1),
+            bbox_to_anchor=(0.5, 0.98),
             ncol=2,
             fontsize=11,
         )
@@ -264,8 +267,8 @@ def plot_projection_comparison(
     wspace=0.35,
     top=0.88,
     bottom=0.15,
-    left=0.09,
-    right=0.98,
+    left=0.13,
+    right=0.95,
     **gridspec_kws,
 ):
     """Plot a summary comparison of the projection."""
