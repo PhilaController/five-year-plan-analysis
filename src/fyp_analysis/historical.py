@@ -38,6 +38,7 @@ def update_quarterly_collections():
         "name == 'net_profits_city' and kind == 'current'",
         "name == 'parking' and kind == 'total'",
         "name == 'amusement' and kind == 'total'",
+        "name == 'soda' and kind == 'total'",
     ]
 
     # Output path
@@ -84,7 +85,7 @@ def update_quarterly_collections():
                 writer,
                 sheet_name=sheet_name,
                 startrow=start_row,
-                startcol=1,
+                startcol=1 if "soda" not in query else 3,
                 index=False,
             )
 
