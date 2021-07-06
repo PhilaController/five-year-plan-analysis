@@ -3,12 +3,14 @@ from typing import List
 import pandas as pd
 
 
-def aggregate_to_fiscal_year(data):
+def aggregate_to_fiscal_year(data, freq="QS"):
     """Group by fiscal year and sum."""
 
     assert isinstance(data.index, pd.DatetimeIndex)
+    assert freq in ["MS", "QS"]
+    shift = 2 if freq == "QS" else 6
     return (
-        data.groupby(data.index.shift(2, freq="QS").year)
+        data.groupby(data.index.shift(shift, freq=freq).year)
         .sum()
         .to_frame()
         .rename_axis("fiscal_year", index=0)
