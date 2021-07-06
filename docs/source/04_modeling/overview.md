@@ -33,6 +33,9 @@ parameters to generate the final fits.
 
 ## Running the Pipeline
 
+
+### The full pipeline
+
 To run the modeling pipeline only, execute:
 
 ```
@@ -47,6 +50,20 @@ This is the default configuration if no extra command line arguments are passed:
 ```
 fyp-analysis run
 ```
+
+### Forecasts and reporting
+
+If we only want to run the forecast and reporting steps of the modeling parameters, 
+we can run the following:
+
+```
+fyp-analysis run --pipeline mod --from-nodes forecasting_node
+```
+
+This will start the pipeline execution at the forecast step, and then run the 
+reporting step (which outputs the summary spreadsheet). By starting here, we 
+do not need to re-calculate the calculation of the Granger matrix and other
+pre-modeling steps.
 
 ## Parameters
 
