@@ -121,10 +121,10 @@ def plot_projection(
 
         # Plot vertical line
         this_year = tax.latest_historical_year
-        ax.axvline(x=this_year, c=colors["dark-grey"], lw=3)
+        ax.axvline(x=this_year, c=colors["dark-gray"], lw=3)
 
         # Plot historic
-        color = colors["medium-grey"]
+        color = colors["medium-gray"]
         comparison[col].loc[start_year:this_year].plot(
             ax=ax,
             marker="o",
@@ -215,7 +215,7 @@ def plot_projection_differences(
 
         # Plot
         ax.axhline(y=0, color=colors["almost-black"], lw=3, zorder=11)
-        diff.plot(kind="bar", color=colors["medium-grey"], zorder=10)
+        diff.plot(kind="bar", color=colors["medium-gray"], zorder=10)
 
         ax.set_xlabel("Fiscal Year", fontsize=11)
 

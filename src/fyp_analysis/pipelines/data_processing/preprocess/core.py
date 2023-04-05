@@ -156,7 +156,7 @@ class PreprocessPipeline(TransformerMixin):
 
                 M[col] = M[col].fillna(M[origcol])
                 for dt in M.loc[start_date:].index:
-                    shifted_index = dt - guide["periods"] * dt.freq
+                    shifted_index = dt - guide["periods"] * M.index.freq
                     M.loc[dt, col] = M.loc[dt, col] + M.loc[shifted_index, col]
 
                 # Make a copy and trim to input index

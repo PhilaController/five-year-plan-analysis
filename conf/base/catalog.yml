@@ -95,7 +95,7 @@ possible_endog_variables:
 
 plan_details:
   type: fyp_analysis.extras.datasets.PlanDetailsYAMLDataSet
-  filepath: data/01_raw/plans/FY22-FY26-Adopted.yml
+  filepath: data/01_raw/plans/FY23-FY27-Adopted.yml
 
 wage_fit_params:
   type: pickle.PickleDataSet
@@ -120,6 +120,15 @@ gross_receipts_fit_params:
 rtt_fit_params:
   type: pickle.PickleDataSet
   filepath: data/04_model_input/fit_params/rtt.pkl
+  versioned: True
+
+rtt_tax_base_forecast:
+  type: pandas.CSVDataSet
+  filepath: data/04_model_input/rtt_tax_base_forecast.csv
+  save_args:
+    index: True
+  load_args:
+    index_col: 0
   versioned: True
 
 parking_fit_params:

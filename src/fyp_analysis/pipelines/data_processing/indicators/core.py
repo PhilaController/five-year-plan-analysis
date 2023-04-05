@@ -7,11 +7,10 @@ from pathlib import Path
 from typing import Any, List, Optional
 
 import pandas as pd
-from kedro.config import ConfigLoader, MissingConfigException
-from loguru import logger
-
 from fyp_analysis import SRC_DIR
 from fyp_analysis.extras.datasets.utils import DataclassSchema
+from kedro.config import ConfigLoader, MissingConfigException
+from loguru import logger
 
 # Data directory
 DATA_DIR = SRC_DIR / ".." / ".." / "data" / "01_raw" / "indicators"
@@ -72,8 +71,8 @@ class DataSource(_DataclassMixin, abc.ABC):
             raise ValueError(f"Allowed values for 'geography' arg: {ALLOWED_GEO}")
 
         # Load the credentials
-        conf_paths = ["conf/base", "conf/local"]
-        conf_loader = ConfigLoader(conf_paths)
+        conf_path = str(SRC_DIR / ".." / ".." / "conf")
+        conf_loader = ConfigLoader(conf_source=conf_path, env="local")
 
         try:
             self.credentials = conf_loader.get("credentials*", "credentials*/**")

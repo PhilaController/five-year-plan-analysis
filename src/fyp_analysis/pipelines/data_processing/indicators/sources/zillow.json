@@ -3,35 +3,35 @@
         "name": "MedianHomeValuePhilly",
         "frequency": "monthly",
         "geography": "Philadelphia",
-        "url": "http://files.zillowstatic.com/research/public_v2/zhvi/City_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv",
+        "url": "https://files.zillowstatic.com/research/public_csvs/zhvi/City_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv",
         "description": "ZHVI All Homes (SFR, Condo/Co-op) Time Series"
     },
     {
         "name": "HousingInventoryPhillyMSA",
         "frequency": "monthly",
         "geography": "Philadelphia MSA",
-        "url": "https://files.zillowstatic.com/research/public_v2/invt_fs/Metro_invt_fs_uc_sfrcondo_smoothed_month.csv",
+        "url": "https://files.zillowstatic.com/research/public_csvs/invt_fs/Metro_invt_fs_uc_sfrcondo_sm_month.csv",
         "description": "For-Sale Inventory (Smooth, All Homes, Monthly)"
     },
     {
         "name": "MeanDaysToSalePhillyMSA",
         "frequency": "monthly",
         "geography": "Philadelphia MSA",
-        "url": "https://files.zillowstatic.com/research/public_v2/mean_doz_pending/Metro_mean_doz_pending_uc_sfrcondo_smoothed_monthly.csv",
+        "url": "https://files.zillowstatic.com/research/public_csvs/mean_doz_pending/Metro_mean_doz_pending_uc_sfrcondo_sm_month.csv",
         "description": "Mean Days to Pending (Smooth, All Homes, Monthly)"
     },
     {
         "name": "MedianListPricePhillyMSA",
         "frequency": "monthly",
         "geography": "Philadelphia MSA",
-        "url": "https://files.zillowstatic.com/research/public_v2/mlp/Metro_mlp_uc_sfrcondo_smoothed_month.csv",
+        "url": "https://files.zillowstatic.com/research/public_csvs/mlp/Metro_mlp_uc_sfrcondo_sm_month.csv",
         "description": "Median List Price (Smooth, All Homes, Monthly)"
     },
     {
         "name": "RentIndexPhillyMSA",
         "frequency": "monthly",
         "geography": "Philadelphia MSA",
-        "url": "https://files.zillowstatic.com/research/public_v2/zori/Metro_ZORI_AllHomesPlusMultifamily_SSA.csv",
+        "url": "https://files.zillowstatic.com/research/public_csvs/zori/Metro_ZORI_AllHomesPlusMultifamily_Smoothed.csv",
         "description": "ZORI (Smoothed, Seasonally Adjusted} All Homes Plus Multifamily"
     }
 ]

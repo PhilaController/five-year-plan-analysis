@@ -1,17 +1,46 @@
+[tool.poetry]
+name = "fyp-analysis"
+version = "0.1.0"
+description = "Revenue projections for the City of Philadelphia’s major tax revenues as part of the Controller’s Office review of the City’s annual Five Year Plan."
+authors = ["Nick Hand <nick.hand@phila.gov>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+kedro = {version = '^0.18.1', python = ">=3.9,<3.11"}
+jupyterlab = "^3.4.2"
+notebook = "^6.4.11"
+fredapi = "^0.5.0"
+loguru = "^0.5"
+openpyxl = "^3.0.10"
+Quandl = "^3.7.0"
+pandas = "^1.4.2"
+scikit-learn = "^1.1.1"
+matplotlib = "^3.5.2"
+cached-property = "^1.5.2"
+bls = "^0.3.0"
+statsmodels = "^0.13.2"
+seaborn = "^0.11.2"
+jupyterlab-code-formatter = "^1.4.11"
+carto2gpd = "^1.0.11"
+desert = "^2020.11.18"
+phila-style = "^0.1.1"
+tqdm = "^4.64.0"
+pystan = "<3"
+fbprophet = "^0.7.1"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+black = "^22.3.0"
+
+[tool.poetry.scripts]
+fyp-analysis = "fyp_analysis.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
 [tool.kedro]
 package_name = "fyp_analysis"
 project_name = "Five Year Plan Analysis"
-project_version = "0.17.3"
-
-[tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-line_length = 88
-known_third_party = "kedro"
-
-[tool.pytest.ini_options]
-addopts = """
---cov-report term-missing \
---cov src/fyp_analysis -ra"""
+project_version = "0.18.1"

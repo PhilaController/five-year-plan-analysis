@@ -1,8 +1,9 @@
+"""Load historical data."""
+
 import numpy as np
 import openpyxl
 import pandas as pd
 from loguru import logger
-from phl_budget_data.clean import load_city_tax_collections
 
 from . import SRC_DIR
 
@@ -16,7 +17,9 @@ def update_quarterly_collections():
     """
 
     # All
-    df = load_city_tax_collections()
+    df = pd.read_csv(
+        "https://raw.githubusercontent.com/PhilaController/phl-budget-data/main/src/phl_budget_data/data/processed/revenue/city-tax-collections.csv"
+    )
     latest_date = df["date"].max()
 
     # Add fiscal quarter

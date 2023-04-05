@@ -353,7 +353,7 @@ def _grid_search_parallel(args):
 
             # Add the keywords
             metrics.update(kws)
-        except Warning:
+        except RuntimeWarning:
             pass
 
     return metrics
