@@ -1,0 +1,64 @@
+{
+  "D.Ln.AmusementBase": [
+    "WageBase",
+    "PersonalSavingsRate",
+    "RTTBase",
+    "3MonthTreasury",
+    "UnemploymentPhilly",
+    "HousingSupply",
+    "NYCGasPrice",
+    "PPI",
+    "GovtSocialBenefits",
+    "UncertaintyIndex"
+  ],
+  "D.GrossReceiptsBase": [
+    "SalesBase",
+    "OilPriceWTI"
+  ],
+  "D.NetIncomeBase": [
+    "SalesBase"
+  ],
+  "D.NPTBase": [
+    "SalesBase",
+    "3MonthTreasury",
+    "OilPriceWTI"
+  ],
+  "D.ParkingBase": [
+    "CorporateProfits",
+    "OilPriceWTI",
+    "PPI",
+    "NYCGasPrice",
+    "CPIU",
+    "FedFundsRate",
+    "NonresidentialInvestment",
+    "YieldCurve",
+    "WageBase",
+    "RTTBase",
+    "GovtSocialBenefits"
+  ],
+  "D.RTTBase": [
+    "BuildingPermitsPhillyMSA",
+    "ParkingBase",
+    "ConsumerConfidence",
+    "PrimeEPOP",
+    "WageBase",
+    "AmusementBase",
+    "SP500",
+    "GovtSocialBenefits",
+    "ContinuedClaimsPA"
+  ],
+  "D.SalesBase": [
+    "NetIncomeBase",
+    "GrossReceiptsBase",
+    "NPTBase"
+  ],
+  "D.WageBase": [
+    "ParkingBase",
+    "AmusementBase",
+    "RTTBase",
+    "ContinuedClaimsPA",
+    "AlcoholSales",
+    "NYCGasPrice",
+    "FedFundsRate"
+  ]
+}
