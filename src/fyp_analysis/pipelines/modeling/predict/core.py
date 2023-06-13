@@ -1,15 +1,14 @@
 import itertools
-import multiprocessing as mp
 import warnings
 from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
-import tqdm
 from loguru import logger
 from sklearn.model_selection import TimeSeriesSplit
 from statsmodels.tsa.vector_ar.var_model import VARResultsWrapper
+from tqdm import tqdm
 
 from ...data_processing.preprocess.core import PreprocessPipeline
 from .utils import get_possible_exog_variables, subset_features
@@ -329,8 +328,8 @@ def test_train_var_model(
     return {"mape_splits": mapes, "mape": combined_mape}
 
 
-def _grid_search_parallel(args):
-    """Run the grid search in parallel."""
+def _grid_search(args):
+    """Run the grid search."""
 
     # The arguments
     (kws, unscaled_features, preprocess, n_splits) = args
@@ -340,7 +339,7 @@ def _grid_search_parallel(args):
     with warnings.catch_warnings():
 
         # Raise an error
-        warnings.filterwarnings("error")
+        warnings.filterwarnings("ignore")
 
         # Catch warnings in case overflow runtime error is raised (bad params)
         try:
@@ -404,16 +403,20 @@ def grid_search_var_model(
         n_splits,
     )
 
-    # Run in parallel
-    N = mp.cpu_count()
-    logger.info(f"Running grid search in parallel with {N} processes")
-    with mp.Pool(processes=N) as p:
+    # Run grid search
+    logger.info(f"Running grid search")
 
-        # Look over all parameter dictionaries
-        params = [tuple([param_set, *args]) for param_set in all_grid_params]
+    # Look over all parameter dictionaries
+    params = [tuple([param_set, *args]) for param_set in all_grid_params]
 
-        # Use tqdm to log a process bar
-        fits = list(tqdm.tqdm(p.imap(_grid_search_parallel, params), total=len(params)))
+    # Loop
+    fits = []
+    try:
+        with tqdm(params) as t:
+            for p in t:
+                fits.append(_grid_search(p))
+    except KeyboardInterrupt:
+        pass
 
     # Trim out any None metrics
     fits = list(filter(lambda d: d is not None, fits))
@@ -552,7 +555,6 @@ def run_possible_models(
         to worst fit based on the test sample score
     """
     # Loop over all possible endog combos
-
     all_grid_combos = []
     for grid_params in generate_grid_parameters(
         main_endog,

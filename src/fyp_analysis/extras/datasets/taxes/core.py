@@ -164,7 +164,7 @@ class QuarterlyTaxData(abc.ABC):
         if self.accrual_method == "net":
             net_accrual = df.iloc[-2:].sum(axis=0)
             net_accrual["fiscal_quarter"] = "Net Accrual"
-            df = df.append(net_accrual, ignore_index=True)
+            df = pd.concat([df, net_accrual.to_frame().T], axis=0, ignore_index=True)
         # Handle by the quarter
         # NOTE: This is important for BIRT/NPT due to shifted dates in FY20
         else:

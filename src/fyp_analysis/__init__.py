@@ -1,7 +1,8 @@
 """Five Year Plan Analysis."""
 
+from importlib.metadata import version
 from pathlib import Path
 
-__version__ = "0.1.0"
+__version__ = version(__name__)
 
 SRC_DIR = Path(__file__).parent.resolve()

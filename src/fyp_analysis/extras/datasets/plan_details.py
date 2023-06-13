@@ -1,10 +1,11 @@
-import json
 from dataclasses import dataclass, fields, make_dataclass
-from typing import Dict, Iterator, List, Optional, Union
+from typing import Dict, Iterator, List, Literal, Optional, Union
 
 import pandas as pd
+import yaml
 from kedro.extras.datasets.yaml import YAMLDataSet
 
+from ... import SRC_DIR
 from .taxes import TAX_NAMES
 from .utils import DataclassSchema
 
@@ -145,6 +146,57 @@ class PlanDetails(DataclassSchema):
             self.rates[tax_name],
             index=pd.Index(self.fiscal_years, name="fiscal_year"),
         ).squeeze()
+
+    @classmethod
+    def from_file(cls, plan_type: Literal["proposed", "adopted"], plan_start_year: int):
+        """
+        Load the plan details from file.
+
+        Parameters
+        ----------
+        plan_type :
+            either 'proposed' or 'adopted'
+        plan_start_year :
+            first year of the plan
+        """
+        # Check input types
+        plan_type = plan_type.lower()
+        if plan_type not in ["proposed", "adopted"]:
+            raise ValueError("Allowed plan types: 'proposed', 'adopted'")
+
+        # First and last fiscal year
+        first = str(plan_start_year)[2:]
+        last = str(plan_start_year + 4)[2:]
+
+        # Get the file path
+        filename = f"FY{first}-FY{last}-{plan_type.capitalize()}.yml"
+        filepath = SRC_DIR / ".." / ".." / "data" / "01_raw" / "plans" / filename
+        filepath = filepath.absolute().resolve()
+        if not filepath.exists():
+            raise FileNotFoundError(f"No file found at path: '{str(filepath)}'")
+
+        # Load data
+        with filepath.open("r") as ff:
+            data = yaml.safe_load(ff)
+
+        # Format the rates
+        assert "rates" in data
+        for tax_name in data["rates"]:
+            value = data["rates"][tax_name]
+            if isinstance(value, list):
+                data["rates"][tax_name] = {"rate": value}
+            elif isinstance(value, dict):
+                data["rates"][tax_name] = {f"rate_{k}": v for (k, v) in value.items()}
+            else:
+                raise ValueError("Error parsing rate info in YAML file.")
+
+        # Format birt splits
+        assert "net_income_fraction" in data
+        value = data.pop("net_income_fraction")
+        data["birt_splits"] = {"net_income_fraction": value}
+
+        # Initialize and return from dict
+        return cls.from_dict(data)
 
 
 class PlanDetailsYAMLDataSet(YAMLDataSet):

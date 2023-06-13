@@ -1,2 +1,0 @@
-include fyp_analysis/pipelines/data_processing/indicators/sources/*json
-include fyp_analysis/templates/*.xlsx

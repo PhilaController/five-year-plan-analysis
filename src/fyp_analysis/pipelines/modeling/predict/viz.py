@@ -228,7 +228,7 @@ def plot_projection_differences(
         ax.set_yticks(ax.get_yticks())
         ax.set_yticklabels([format_label(x) for x in ax.get_yticks()], fontsize=11)
 
-        for i, (yr, value) in enumerate(diff.iteritems()):
+        for i, (yr, value) in enumerate(diff.items()):
             va = "top" if value < 0 else "bottom"
             offset = -0.25 if value < 0 else 0.25
             ax.text(

@@ -7,10 +7,11 @@ from pathlib import Path
 from typing import Any, List, Optional
 
 import pandas as pd
-from fyp_analysis import SRC_DIR
-from fyp_analysis.extras.datasets.utils import DataclassSchema
 from kedro.config import ConfigLoader, MissingConfigException
 from loguru import logger
+
+from fyp_analysis import SRC_DIR
+from fyp_analysis.extras.datasets.utils import DataclassSchema
 
 # Data directory
 DATA_DIR = SRC_DIR / ".." / ".." / "data" / "01_raw" / "indicators"
@@ -91,7 +92,8 @@ class DataSource(_DataclassMixin, abc.ABC):
         assert cls.JSON is not None
 
         path = Path(__file__).parent.absolute() / "sources" / cls.JSON
-        return json.load(path.open("r"))
+        with path.open("r") as ff:
+            return json.load(ff)
 
     @property
     def local_path(self):

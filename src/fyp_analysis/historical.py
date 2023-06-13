@@ -1,5 +1,9 @@
 """Load historical data."""
+import shutil
+import tempfile
+from pathlib import Path
 
+import click
 import numpy as np
 import openpyxl
 import pandas as pd
@@ -7,7 +11,10 @@ from loguru import logger
 
 from . import SRC_DIR
 
+PHL_BUDGET_REPO = "https://raw.githubusercontent.com/PhilaController/phl-budget-data"
 
+
+@click.command()
 def update_quarterly_collections():
     """
     Update the quarterly collection actuals in the
@@ -18,7 +25,7 @@ def update_quarterly_collections():
 
     # All
     df = pd.read_csv(
-        "https://raw.githubusercontent.com/PhilaController/phl-budget-data/main/src/phl_budget_data/data/processed/revenue/city-tax-collections.csv"
+        f"{PHL_BUDGET_REPO}/main/src/phl_budget_data/data/processed/collections/city-tax-collections.csv"
     )
     latest_date = df["date"].max()
 
@@ -53,43 +60,56 @@ def update_quarterly_collections():
     relpath = path.relative_to(DATA_DIR)
     logger.info(f"Updating data in data/{relpath}")
 
-    # Read the book
-    book = openpyxl.load_workbook(path)
+    # Work in a temp folder
+    with tempfile.TemporaryDirectory() as tmpdir:
 
-    # Add latest date
-    sheet_name = "Latest Collections Data"
-    sheet = book[sheet_name]
-    sheet["B4"] = latest_date
+        # Copy over template
+        tmpfile = Path(tmpdir) / "Quarterly.xlsx"
+        shutil.copy(path, tmpfile)
 
-    start_row = 6
-    with pd.ExcelWriter(path, engine="openpyxl") as writer:
+        # Load the file
+        with pd.ExcelWriter(
+            tmpfile, engine="openpyxl", mode="a", if_sheet_exists="overlay"
+        ) as writer:
 
-        # Copy over the sheets
-        writer.book = book
-        writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
+            # Add latest date
+            sheet_name = "Latest Collections Data"
+            sheet = writer.book[sheet_name]
+            sheet["B4"] = latest_date
 
-        for i, query in enumerate(queries):
+            start_row = 6
+            for i, query in enumerate(queries):
 
-            # Get the subset
-            sub = df.query(query)
+                # Get the subset
+                sub = df.query(query)
 
-            # Pivot
-            min_count = 6 if i == 0 else 3
-            X = (
-                sub.groupby(["fiscal_year", "fiscal_quarter"], as_index=False)["total"]
-                .sum(min_count=min_count)
-                .pivot_table(
-                    columns="fiscal_year", index="fiscal_quarter", values="total"
+                # Pivot
+                min_count = 6 if i == 0 else 3
+                X = (
+                    sub.groupby(["fiscal_year", "fiscal_quarter"], as_index=False)[
+                        "total"
+                    ]
+                    .sum(min_count=min_count)
+                    .pivot_table(
+                        columns="fiscal_year", index="fiscal_quarter", values="total"
+                    )
+                ).sort_index()
+
+                # Save
+                X.to_excel(
+                    writer,
+                    sheet_name=sheet_name,
+                    startrow=start_row,
+                    startcol=1 if "soda" not in query else 3,
+                    index=False,
                 )
-            ).sort_index()
 
-            # Save
-            X.to_excel(
-                writer,
-                sheet_name=sheet_name,
-                startrow=start_row,
-                startcol=1 if "soda" not in query else 3,
-                index=False,
-            )
+                start_row += 7
 
-            start_row += 7
+        # Copy back
+        tmpfile = Path(tmpdir) / "Quarterly.xlsx"
+        shutil.copy(tmpfile, path)
+
+
+if __name__ == "__main__":
+    update_quarterly_collections()

@@ -2,8 +2,8 @@ import shutil
 from datetime import datetime
 
 import pandas as pd
-from fbprophet import Prophet
 from openpyxl import load_workbook
+from prophet import Prophet
 
 from fyp_analysis.pipelines.data_processing import preprocess
 

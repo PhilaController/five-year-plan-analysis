@@ -1,5 +1,5 @@
 """The nodes in the data processing pipeline."""
-from typing import List
+from typing import List, Literal
 
 import pandas as pd
 from loguru import logger
@@ -83,7 +83,10 @@ def impute_cbo_values(
 
 
 def combine_features_and_bases(
-    features: pd.DataFrame, plan_details: PlanDetails, min_year: int = 1990
+    features: pd.DataFrame,
+    plan_start_year: int,
+    plan_type: Literal["proposed", "adopted"],
+    min_year: int = 1990,
 ) -> pd.DataFrame:
     """
     Combine the features and the tax bases.
@@ -92,8 +95,10 @@ def combine_features_and_bases(
     ----------
     features
         the economic indicator features
-    plan_details
-        the object holding the Plan details
+    plan_start_year :
+        first year of the plan
+    plan_type :
+        either 'proposed' or 'adopted'
     min_year
         trim the features to this minimum year as a preliminary cut
 
@@ -101,6 +106,9 @@ def combine_features_and_bases(
     -------
     The combined data frame with features and tax bases
     """
+    # Plan details
+    plan_details = PlanDetails.from_file(plan_type, plan_start_year)
+
     # Get all of the tax bases
     taxes = Taxes(plan_details)
     tax_bases = taxes.get_all_tax_bases()

@@ -3,18 +3,17 @@ from typing import Dict, List, Literal
 
 import pandas as pd
 import yaml
-from fyp_analysis.pipelines.modeling.predict import forecast
 from kedro.io import DataCatalog
 from loguru import logger
 from matplotlib import pyplot as plt
 
+from fyp_analysis.pipelines.modeling.predict import forecast
+
 from ... import SRC_DIR
 from ...extras.datasets import PlanDetails, Taxes
 from .correlate import grangers_causation_matrix, plot_feature_correlation
-from .predict import \
-    get_possible_endog_variables as _get_possible_endog_variables
-from .predict import (get_prophet_forecast, get_var_forecast,
-                      plot_projection_comparison)
+from .predict import get_possible_endog_variables as _get_possible_endog_variables
+from .predict import get_prophet_forecast, get_var_forecast, plot_projection_comparison
 from .predict import report_forecast_results as _report_forecast_results
 
 
@@ -107,8 +106,8 @@ def get_possible_endog_variables(
 def run_forecasts(
     unscaled_features: pd.DataFrame,
     stationary_guide: pd.DataFrame,
-    plan_details: PlanDetails,
     plan_start_year: int,
+    plan_type: Literal["proposed", "adopted"],
     cbo_forecast_date: str,
     forecast_types: List[Dict[str, Literal["file", "var", "prophet"]]],
 ):
@@ -121,33 +120,6 @@ def run_forecasts(
 
     # Get the tax names
     tax_names = list(forecast_types)
-
-    # def _get_forecast_var(tax_base_name, fit_params):
-    #     """Calculate the forecast, using the specified method."""
-
-    #     # Make sure fit params are a list, not a single dict
-    #     if isinstance(fit_params, dict):
-    #         fit_params = [fit_params]
-
-    #     # Get the VAR forecast
-    #     if isinstance(fit_params, list):
-
-    #         # Get the VAR forecast
-    #         tax_base_forecast = get_var_forecast(
-    #             unscaled_features,
-    #             stationary_guide,
-    #             fit_params,
-    #             tax_base_name,
-    #             plan_start_year,
-    #             cbo_forecast_date,
-    #         )
-    #     else:
-    #         # Get the VAR forecast
-    #         tax_base_forecast = get_prophet_forecast(
-    #             fit_params, unscaled_features, tax_base_name, plan_start_year
-    #         )
-
-    #     return tax_base_forecast
 
     # Loop over each tax and get the parameters
     tax_bases = []
@@ -214,6 +186,9 @@ def run_forecasts(
 
     # Combine into a dataframe
     tax_bases = pd.concat(tax_bases, axis=1)
+
+    # Plan details
+    plan_details = PlanDetails.from_file(plan_type, plan_start_year)
 
     # Get the revenues too
     tax_revenues = []

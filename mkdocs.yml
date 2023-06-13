@@ -1,0 +1,41 @@
+site_name: Five Year Plan Analysis
+theme:
+  name: material
+  palette:
+    primary: blue
+  features:
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+    - Home: index.md
+    - Install: install.md
+    - Analysis Overview: 
+      - Introduction: steps/intro.md
+      - The data/ folder: 
+        - Overview: steps/data/overview.md
+        - Plan Details: steps/data/plan_details.md
+        - Updates: steps/data/updates.md
+      - Data Processing:
+        - Overview: steps/processing/overview.md
+        - Steps: steps/processing/steps.md
+      - Modeling:
+        - Overview: steps/modeling/overview.md
+        - Steps: steps/modeling/steps.md
+        - Bestfit: steps/modeling/bestfit.md
+        - Results: steps/modeling/results.md
+    - Usage: 
+      - Overview: usage/overview.md
+
+    

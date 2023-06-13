@@ -1,8 +1,12 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes import (get_feature_correlations, get_grangers_matrix,
-                    get_possible_endog_variables, report_forecast_results,
-                    run_forecasts)
+from .nodes import (
+    get_feature_correlations,
+    get_grangers_matrix,
+    get_possible_endog_variables,
+    report_forecast_results,
+    run_forecasts,
+)
 
 
 def create_pipeline(**kwargs):
@@ -35,10 +39,10 @@ def create_pipeline(**kwargs):
                 inputs=[
                     "final_unscaled_features",
                     "stationary_guide",
-                    "plan_details",
                     "params:plan_start_year",
+                    "params:plan_type",
                     "params:cbo_forecast_date",
-                    "params:forecast_types"
+                    "params:forecast_types",
                 ],
                 outputs=["tax_base_forecasts", "tax_revenue_forecasts"],
                 name="forecasting_node",

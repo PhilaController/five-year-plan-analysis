@@ -79,6 +79,7 @@ scaled_feature_correlations:
   load_args:
     index_col: 0
     engine: "openpyxl"
+  versioned: True
 
 grangers_matrix:
   type: pandas.ExcelDataSet
@@ -88,14 +89,12 @@ grangers_matrix:
   load_args:
     index_col: 0
     engine: "openpyxl"
+  versioned: True
 
 possible_endog_variables:
   type: json.JSONDataSet
   filepath: data/04_model_input/possible_endog_variables.json
-
-plan_details:
-  type: fyp_analysis.extras.datasets.PlanDetailsYAMLDataSet
-  filepath: data/01_raw/plans/FY23-FY27-Adopted.yml
+  versioned: True
 
 wage_fit_params:
   type: pickle.PickleDataSet
