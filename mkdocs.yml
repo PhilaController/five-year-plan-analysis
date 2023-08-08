@@ -25,8 +25,8 @@ nav:
     - Install: install.md
     - Usage: 
       - Overview: usage/overview.md
-      - Working Interactively: usage/interactive.md
       - Annual Updates: usage/updates.md
+      - Working Interactively: usage/interactive.md
     - The Code Structure: 
       - Introduction: structure/intro.md
       - The data/ folder: 
@@ -37,10 +37,6 @@ nav:
         - "2. Forecast Prep": structure/steps/2-forecast-prep.md
         - "3. Exploratory Modeling": structure/steps/3-exploratory.md
         - "4. Forecasting": structure/steps/4-forecast.md
-          # - Overview: structure/steps/4-forecast/overview.md
-          # - Steps: structure/steps/4-forecast/steps.md
-          # - Bestfit: structure/steps/4-forecast/bestfit.md
-          # - Results: structure/steps/4-forecast/results.md
 
 
     
