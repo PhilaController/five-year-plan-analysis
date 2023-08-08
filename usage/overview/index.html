@@ -12,7 +12,7 @@
         <link rel="prev" href="../../install/">
       
       
-        <link rel="next" href="../interactive/">
+        <link rel="next" href="../updates/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
@@ -240,8 +240,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../interactive/" class="md-nav__link">
-        Working Interactively
+      <a href="../updates/" class="md-nav__link">
+        Annual Updates
       </a>
     </li>
   
@@ -254,8 +254,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../updates/" class="md-nav__link">
-        Annual Updates
+      <a href="../interactive/" class="md-nav__link">
+        Working Interactively
       </a>
     </li>
   
@@ -502,13 +502,30 @@
                   
 
 
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This section assumes you are already familiar with the basics of the code
-structure and want to get started using the code immediately. If that's not
-the case, please read the <a href="../../structure/intro">analysis deep dive section</a> first.</p>
-</div>
 <h1 id="overview">Overview</h1>
+<p>This section will describe how to run the various steps of the analysis code.
+It assumes you have already installed the code by following the 
+<a href="../../install/">installation instructions</a>.
+It also assumes that you are already familiar with the basics of the code
+structure and want to get started using the code immediately. If that's not 
+the case, please read the <a href="../../structure/intro/">analysis deep dive section</a> first.</p>
+<p>If you're getting started on the analysis for a new Five Year Plan, 
+you'll want to first read the instructions for performing the <a href="../updates/">annual updates</a>. </p>
+<p>First, run the <a href="../../structure/steps/1-processing/">data processing pipeline</a>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>poetry run fyp-analysis-run --pipeline dp
+</span></code></pre></div>
+<p>Then, prepare for the forecast stage by running the 
+<a href="../../structure/steps/2-forecast-prep/">forecast prep pipeline</a>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>poetry run fyp-analysis-run --pipeline fp
+</span></code></pre></div>
+<p>Then, launch an interactive environment for the <a href="../../structure/steps/3-exploratory/">exploratory modeling step</a>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>poetry run kedro jupyter lab
+</span></code></pre></div>
+<p>See the <a href="../interactive/">documentation</a> for working interactively for more details.</p>
+<p>Finally, you can produce the final forecasts by running the <a href="../../structure/steps/4-forecast/">forecast pipeline</a>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>poetry run fyp-analysis-run --pipeline forecast
+</span></code></pre></div>
+<p>The final forecasts are summarized in the following file: <code>data/07_reporting/revenue_summary.xlsx</code>.</p>
 
 
 

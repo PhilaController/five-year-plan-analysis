@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../overview/">
+        <link rel="prev" href="../updates/">
       
       
-        <link rel="next" href="../updates/">
+        <link rel="next" href="../../structure/intro/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
@@ -228,6 +228,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../updates/" class="md-nav__link">
+        Annual Updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -243,20 +257,6 @@
         Working Interactively
       </a>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../updates/" class="md-nav__link">
-        Annual Updates
-      </a>
     </li>
   
 
@@ -503,6 +503,79 @@
 
 
 <h1 id="working-interactively">Working interactively</h1>
+<p>When running a pipeline with <code>kedro</code>, the software will automatically
+load the Data Catalog and parameters using the YAML files in the <code>conf/</code>
+folder and make those available to the functions in the pipeline.
+This information is part of the "context" that <code>kedro</code> uses to 
+run each pipeline. </p>
+<p>Rather than simply running the pipelines from the command line, it
+will sometimes be easier to work in an interactive environment, either
+by using IPython or Jupyter Notebook/Lab. This section describes how to work 
+interactively with <code>kedro</code> and be able to load datasets from the 
+Data Catalog and have access to the configuration parameters. </p>
+<p>We will use the <code>kedro</code> command to work interactively with the code and
+automatically have a few key context variables loaded for us. </p>
+<p>To start a new IPython session in the command line, use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kedro ipython
+</span></code></pre></div>
+<p>You should see the following log messages printed out:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>INFO - ** Kedro project Five Year Plan Analysis
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>INFO - Defined global variable `context`, `session` and `catalog`
+</span></code></pre></div>
+<p>The global <code>catalog</code> variable will hold all of the entries from the <code>catalog.yml</code> file.
+We can load a data frame by referencing the desired dataset's name in the YAML file. 
+For example, we can load the economic indicators using:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">indicators</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;economic_indicators&quot;</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">indicators</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</span></code></pre></div>
+<p>And this is the output you'll see:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>            BuildingPermitsPhilly  ActivityLicensesPhilly  BizLicensesPhilly  ...  MeanDaysToSalePhillyMSA  MedianListPricePhillyMSA  RentIndexPhillyMSA
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Date                                                                          ...
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1913-01-01                    NaN                     NaN                NaN  ...                      NaN                       NaN                 NaN
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>1913-02-01                    NaN                     NaN                NaN  ...                      NaN                       NaN                 NaN
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>1913-03-01                    NaN                     NaN                NaN  ...                      NaN                       NaN                 NaN
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>1913-04-01                    NaN                     NaN                NaN  ...                      NaN                       NaN                 NaN
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>1913-05-01                    NaN                     NaN                NaN  ...                      NaN                       NaN                 NaN
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>[5 rows x 62 columns]
+</span></code></pre></div></p>
+<p>We also have the configuration parameters available to us via the <code>context</code> 
+variables:</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">parameters</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">params</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">parameters</span>
+</span></code></pre></div>
+And you'll see a dictionary of parameters:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{&#39;fresh_indicators&#39;: False,
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> &#39;seasonal_adjustments&#39;: [&#39;ActivityLicensesPhilly&#39;,
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  &#39;BizLicensesPhilly&#39;,
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  &#39;BuildingPermitsPhilly&#39;,
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  &#39;CPIPhillyMSA&#39;,
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  &#39;ContinuedClaimsPA&#39;,
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  &#39;WeeklyEconomicIndex&#39;,
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  &#39;DeedTransfersPhilly&#39;,
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  &#39;InitialClaimsPA&#39;,
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  &#39;UncertaintyIndex&#39;,
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  &#39;UnemploymentPhilly&#39;],
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a> &#39;min_feature_year&#39;: 1996,
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a> &#39;max_fit_date&#39;: &#39;2021-06-30&#39;,
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a> &#39;grangers_maxlag&#39;: 6,
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a> &#39;grangers_max_date&#39;: &#39;2019-12-31&#39;,
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a> &#39;plan_start_year&#39;: 2022,
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a> &#39;cbo_forecast_date&#39;: &#39;latest&#39;}
+</span></code></pre></div></p>
+<p>We can also launch a <a href="https://jupyter-notebook.readthedocs.io/en/stable/">Jupyter Notebook</a> with the <code>kedro</code> command. From 
+the command line, run:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>kedro jupyter notebook
+</span></code></pre></div>
+<p>If instead you want to use <a href="https://jupyterlab.readthedocs.io/en/latest/">Jupyter Lab</a> 
+(the successor to Jupyter Notebook), you can use the following command:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>kedro jupyter lab
+</span></code></pre></div>
+<p>These commands will launch a new browser window and you can create a new notebook
+file that will have the same global variables (<code>context</code>, <code>session</code> and <code>catalog</code>)
+automatically initialized for you.</p>
 
 
 
