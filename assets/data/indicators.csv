@@ -1,0 +1,64 @@
+name,description,source,frequency,geography
+ActivityLicensesPhilly,Commercial activity licenses for the City of Philadelphia,carto,monthly,Philadelphia
+BizLicensesPhilly,Business licenses for the City of Philadelphia,carto,monthly,Philadelphia
+BuildingPermitsPhilly,New construction permits for the City of Philadelphia,carto,monthly,Philadelphia
+DeedTransfersPhilly,Deed real estate transfers for the City of Philadelphia,carto,monthly,Philadelphia
+10YearTreasury,10-Year Treasury Constant Maturity Rate,fred,monthly,national
+3MonthTreasury,3-Month Treasury Bill: Secondary Market Rate,fred,monthly,national
+AlcoholSales,"Retail Sales: Beer, Wine, and Liquor Stores",fred,quarterly,national
+BuildingPermitsPhillyMSA,"New Private Housing Units Authorized by Building Permits for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",fred,quarterly,Philadelphia MSA
+CPIPhillyMSA,"Consumer Price Index for All Urban Consumers: All Items in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",fred,monthly,Philadelphia MSA
+CPIU,Consumer Price Index for All Urban Consumers: All Items in U.S. City Average,fred,monthly,national
+CarSales,Total Vehicle Sales,fred,daily,national
+ConsumerConfidence,Consumer Opinion Surveys: Confidence Indicators: Composite Indicators: OECD Indicator for the United States,fred,monthly,national
+ContinuedClaimsPA,Continued Claims (Insured Unemployment) in Pennsylvania,fred,weekly,state
+CorporateProfits,Corporate Profits with Inventory Valuation Adjustment (IVA) and Capital Consumption Adjustment (CCAdj),fred,quarterly,national
+EconomicConditionsPhillyMSA,"Economic Conditions Index for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",fred,monthly,Philadelphia MSA
+EmploymentCostIndex,Employment Cost Index: Wages and Salaries: Private Industry Workers,fred,quarterly,national
+FHFAHousePriceIndex,Purchase Only House Price Index for the United States,fred,quarterly,national
+FedFundsRate,Effective Federal Funds Rate,fred,monthly,national
+GDP,Gross Domestic Product,fred,quarterly,national
+GDPPriceIndex,Gross Domestic Product: Chain-type Price Index,fred,quarterly,national
+GovtSocialBenefits,Federal government current transfer payments: Government social benefits: to persons,fred,quarterly,national
+HousePriceIndexPhillyMSA,"All-Transactions House Price Index for Philadelphia, PA (MSAD)",fred,quarterly,Philadelphia MSA
+HousingStarts,Housing Starts: Total: New Privately Owned Housing Units Started,fred,monthly,national
+HousingSupply,Monthly Supply of Houses in the United States,fred,monthly,national
+InitialClaimsPA,Initial Claims in Pennsylvania,fred,weekly,state
+JobOpenings,Job Openings: Total Nonfarm,fred,monthly,national
+ManufacturingHoursWorked,Weekly Hours Worked: Manufacturing for the United States,fred,quarterly,national
+NYCGasPrice,"Conventional Gasoline Prices: New York Harbor, Regular",fred,daily,national
+NewManufacturingOrders,Manufacturers' New Orders: Nondefense Capital Goods Excluding Aircraft,fred,monthly,national
+NonfarmEmployeesPhilly,"All Employees: Total Nonfarm in Philadelphia City, PA",fred,monthly,Philadelphia
+NonfarmEmployeesPhillyMSA,"All Employees: Total Nonfarm in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD (MSA)",fred,monthly,Philadelphia MSA
+NonfarmEmployment,"All Employees, Total Nonfarm",fred,monthly,national
+NonresidentialInvestment,Private Nonresidential Fixed Investment,fred,quarterly,national
+OilPriceWTI,"Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma",fred,monthly,national
+PCE,Personal Consumption Expenditures,fred,monthly,national
+PCEPriceIndex,Personal Consumption Expenditures: Chain-type Price Index,fred,monthly,national
+PPI,Producer Price Index for All Commodities,fred,monthly,national
+PersonalIncome,Personal Income,fred,quarterly,national
+PersonalIncomePhillyMSA,"Per Capita Personal Income in Philadelphia County/city, PA",fred,annual,Philadelphia MSA
+PersonalSavingsRate,Personal Savings Rate,fred,monthly,national
+PopulationPhilly,"Resident Population in Philadelphia County/city, PA",fred,annual,Philadelphia
+PrimeEPOP,Employment-Population Ratio,fred,monthly,national
+RealDisposablePersonalIncome,Real Disposable Personal Income,fred,monthly,national
+RealGDP,Real Gross Domestic Product,fred,quarterly,national
+RealGDPPhillyMSA,"Total Real Gross Domestic Product for Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",fred,annual,Philadelphia MSA
+RealRetailFoodServiceSales,Advance Real Retail and Food Services Sales,fred,monthly,national
+ResidentialInvestment,Private Residential Fixed Investment,fred,quarterly,national
+SahmRule,Real-time Sahm Rule Recession Indicator,fred,monthly,national
+TotalBusinessSales,Total Business Sales,fred,monthly,national
+UncertaintyIndex,Economic Policy Uncertainty Index for United States,fred,monthly,national
+UnemploymentPhilly,"Unemployment Rate in Philadelphia County/City, PA",fred,monthly,Philadelphia
+UnemploymentPhillyMSA,"Unemployment Rate in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",fred,monthly,Philadelphia MSA
+UnemploymentRate,Unemployment Rate,fred,monthly,national
+Wage&Salaries,"Compensation of Employees, Received: Wage and Salary Disbursements",fred,monthly,national
+WagesPhillyMSA,"Average Weekly Wages for Employees in Total Covered Establishments in Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",fred,quarterly,Philadelphia MSA
+WeeklyEconomicIndex,Weekly Economic Index (Lewis-Mertens-Stock),fred,weekly,national
+YieldCurve,10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity,fred,daily,national
+SP500,Monthly S&P 500 Price,quandl,monthly,national
+HousingInventoryPhillyMSA,"For-Sale Inventory (Smooth, All Homes, Monthly)",zillow,monthly,Philadelphia MSA
+MeanDaysToSalePhillyMSA,"Mean Days to Pending (Smooth, All Homes, Monthly)",zillow,monthly,Philadelphia MSA
+MedianHomeValuePhilly,"ZHVI All Homes (SFR, Condo/Co-op) Time Series",zillow,monthly,Philadelphia
+MedianListPricePhillyMSA,"Median List Price (Smooth, All Homes, Monthly)",zillow,monthly,Philadelphia MSA
+RentIndexPhillyMSA,"ZORI (Smoothed, Seasonally Adjusted} All Homes Plus Multifamily",zillow,monthly,Philadelphia MSA
