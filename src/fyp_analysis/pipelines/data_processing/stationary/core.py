@@ -62,7 +62,6 @@ def plot_data_properties(
     The matplotlib figure
     """
     with plt.style.context(get_theme()):
-
         # Initialize the figure and set up the axes
         fig = plt.figure(constrained_layout=False, dpi=300, figsize=figsize)
         gs = fig.add_gridspec(
@@ -120,7 +119,6 @@ def get_stationary_guide(
     # Loop over all columns
     stationary = []
     for col in data.columns:
-
         # The feature data
         feature = data[col].dropna()
 
@@ -142,7 +140,6 @@ def get_stationary_guide(
         # Loop until we've differenced enough
         ndiffs = 0
         while not test_stationarity(feature) or ndiffs < 1:
-
             # Difference tax bases only once
             if ndiffs == 1 and "Base" in col:
                 break

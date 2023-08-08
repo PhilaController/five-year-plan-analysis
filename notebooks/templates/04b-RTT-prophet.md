@@ -29,12 +29,17 @@ from phila_style.matplotlib import get_theme
 
 ```python
 # Prediction functions
+from fyp_analysis import SRC_DIR
 from fyp_analysis.extras.datasets import PlanDetails, Taxes, load_cbo_data
 from fyp_analysis.pipelines.modeling.predict import (
     aggregate_to_fiscal_year,
     get_forecasts_from_fits,
     plot_projection_comparison,
 )
+```
+
+```python
+DATA_DIR = SRC_DIR / ".." / ".." / "data"
 ```
 
 ```python
@@ -164,7 +169,7 @@ Source: https://opendataphilly.org/datasets/real-estate-transfers/
 ```python
 # Load the full transfers dataset
 rtt = pd.read_csv(
-    "../../data/01_raw/historical/rtt/rtt_summary.csv",
+    DATA_DIR / "01_raw/historical/rtt/rtt_summary.csv",
     dtype={"document_id": str, "opa_account_num": str},
 )
 

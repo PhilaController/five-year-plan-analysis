@@ -126,6 +126,14 @@ Data associated with a tax is stored in the `.data` attribute:
 this_tax.data.head()
 ```
 
+```python
+this_tax.data.tail(20)
+```
+
+```python
+this_tax.tax_bases_to_revenue??
+```
+
 Load the final unscaled features:
 
 ```python

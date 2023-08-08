@@ -326,6 +326,9 @@ plt.show()
 
 ### Compare to Budget Office Projections
 
+```python
+[f["target_mape"] for f in all_fits][:20]
+```
 
 Get an average forecast over the top *N* fits:
 

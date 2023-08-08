@@ -24,23 +24,13 @@ produces projections for the following tax revenues:
 - Beverage
 
 
-The analysis relies on quarterly revenue data since 1996 and uses [vector auto
-regression](https://en.wikipedia.org/wiki/Vector_autoregression) to make
-time-series projections. The regression incorporates the [CBO's latest 10-year
+The analysis relies on quarterly revenue data since 1996 and uses either
+[vector auto regression](https://en.wikipedia.org/wiki/Vector_autoregression)
+via the [`statsmodels` package](https://www.statsmodels.org/stable/index.html)
+or auto-regression via the [`prophet` package](https://facebook.github.io/prophet/) to make time-series projections.
+In both cases, the regression forecasts incorporate the [CBO's latest 10-year
 forecast](https://www.cbo.gov/data/budget-economic-data) as exogeneous
-variables. The steps involved in the analysis are:
-
-1. Download latest economic indicator data. 
-2. Preprocess economic indicators and tax revenue data to make data suitable to
-   for time-series projections.
-3. Calculate the [Granger
-   causality](https://en.wikipedia.org/wiki/Granger_causality) matrix to
-   determine which indicators should be used in the revenue forecasts. 
-4. For each tax, use historical data to perform a brute-force grid search to
-   identify the which regression parameters and indicators provide the best
-   accuracy. 
-5. Perform final five-year projections for each tax and compare projections to
-   the Budget Office projections.
+variables. 
 
 
 
@@ -48,5 +38,7 @@ variables. The steps involved in the analysis are:
 
 - If this is your first time using the code, following the [installation
   instructions](./install).
-- If you'd like to learn more about the structure of the code, check out the
+- If you'd like to dive into using the code, check out the
   [usage section](./usage/overview).
+- To learn more about the different steps involved in the analysis, check out the
+  [code structure docs](./structure/overview).

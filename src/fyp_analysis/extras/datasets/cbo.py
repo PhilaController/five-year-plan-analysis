@@ -7,7 +7,7 @@ from ... import SRC_DIR
 DATA_DIR = SRC_DIR / ".." / ".." / "data" / "01_raw" / "cbo"
 
 
-def load_cbo_data(date="latest"):
+def load_cbo_data(date="latest", raw=False):
     """
     Load economic projections from the Congressional
     Budget Office (CBO).
@@ -39,7 +39,6 @@ def load_cbo_data(date="latest"):
 
     # Excel
     if fmt == "xlsx":
-
         # Read the raw data
         cbo = pd.read_excel(
             path,
@@ -47,6 +46,9 @@ def load_cbo_data(date="latest"):
             usecols="B:BH",
             skiprows=6,
         ).dropna(how="all", axis=0)
+
+        if raw:
+            return cbo
 
         # Columns to rename
         rename = {
@@ -103,9 +105,10 @@ def load_cbo_data(date="latest"):
 
     # CSV format
     else:
-
         # Read the raw data
         cbo = pd.read_csv(path)
+        if raw:
+            return cbo
 
         rename = {
             "real_gdp": "RealGDP",

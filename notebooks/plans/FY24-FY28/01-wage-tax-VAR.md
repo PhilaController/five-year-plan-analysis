@@ -328,7 +328,7 @@ plt.show()
 Get an average forecast over the top *N* fits:
 
 ```python
-TOP = 1
+TOP = 3
 
 all_forecasts = get_forecasts_from_fits(
     unscaled_features,

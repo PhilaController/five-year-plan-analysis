@@ -1,0 +1,14 @@
+# The maximum year to include in the VAR fits
+max_fit_date: "2023-06-30"
+
+
+
+forecast_types:
+  wage: "var"
+  sales: "var"
+  net_income: "var"
+  gross_receipts: "var"
+  parking: "var"
+  amusement: "var"
+  rtt: "file"
+  npt: "var"

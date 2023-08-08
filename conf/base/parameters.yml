@@ -2,7 +2,7 @@
 plan_start_year: 2024
 
 # proposed or adopted
-plan_type: "proposed"
+plan_type: "adopted"
 
 # Which CBO forecast do we want to use
 cbo_forecast_date: "latest"

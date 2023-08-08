@@ -329,13 +329,13 @@ plt.show()
 ### Compare to Budget Office Projections
 
 ```python
-[f['target_mape'] for f in all_fits[:10]]
+[f["target_mape"] for f in all_fits[:10]]
 ```
 
 Get an average forecast over the top *N* fits:
 
 ```python
-TOP = 2
+TOP = 10
 
 all_forecasts = get_forecasts_from_fits(
     unscaled_features,

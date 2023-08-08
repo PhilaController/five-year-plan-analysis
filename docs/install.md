@@ -50,20 +50,33 @@ This will create a new Python environment where all of the code's dependencies
 are installed. If this finishes successfully, 
 
 ```bash
-poetry run fyp-analysis --help
+poetry run fyp-analysis-run --help
 ```
 
 This should output the help message for the main analysis command.
 
 !!! note
 
-    The command name (`fyp-analysis`) must be prefixed with `poetry run`. 
+    The command name (`fyp-analysis-run`) must be prefixed with `poetry run`. 
     This ensures that `poetry` will run the command from within the installed 
     environment, so that the necessary dependencies are available when the code runs.
 
+## Set up your API credentials
+
+To download economic indicator data, you will need credentials to connect to
+the API services of various sources. These credentials are stored on the FPD
+Sharepoint site in the following file:
+
+`Documents/Five Year Plan/Analysis/Indicator API Credentials.docx`
+
+Create a local file in the `conf/local/` folder called `credentials.yml` and
+copy the contents of the sharepoint file into this file. This will allow the
+data processing pipeline to automatically download the necessary economic
+indicators.
 
 
-## Getting the latest changes
+
+## Getting the latest code changes
 
 You can pull in the latest changes from Github using the `git` command:
 

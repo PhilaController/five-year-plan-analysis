@@ -330,7 +330,7 @@ plt.show()
 Get an average forecast over the top *N* fits:
 
 ```python
-[fit['target_mape'] for fit in all_fits[:10]]
+[fit["target_mape"] for fit in all_fits[:10]]
 ```
 
 ```python

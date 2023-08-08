@@ -8,13 +8,9 @@ conf/local/**
 # ignore potentially sensitive credentials files
 conf/**/*credentials*
 
-# ignore everything in the following folders
-data/**
-logs/**
-
-# except their sub-folders
-!data/**/
-!logs/**/
+# Ignore specific data files
+data/01_raw/historical/rtt/opa_properties_public.csv
+data/01_raw/historical/rtt/rtt_summary.csv
 
 # also keep all .gitkeep files
 !.gitkeep
@@ -22,7 +18,7 @@ logs/**
 # Ignore notebooks
 notebooks/**/*.ipynb
 
-
+docs-old
 
 ##########################
 # Common files

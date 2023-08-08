@@ -1,10 +1,16 @@
 """The function for creating the data processing pipeline."""
 from kedro.pipeline import Pipeline, node
 
-from .nodes import (combine_features_and_bases, get_economic_indicators,
-                    get_final_scaled_features, get_final_unscaled_features,
-                    get_quarterly_averages, get_stationary_guide,
-                    impute_cbo_values, seasonally_adjust_features)
+from .nodes import (
+    combine_features_and_bases,
+    get_economic_indicators,
+    get_final_scaled_features,
+    get_final_unscaled_features,
+    get_quarterly_averages,
+    get_stationary_guide,
+    impute_cbo_values,
+    seasonally_adjust_features,
+)
 
 
 def create_pipeline(**kwargs):
@@ -34,7 +40,11 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=combine_features_and_bases,
-                inputs=["quarterly_features_cbo_imputed", "params:plan_start_year", "params:plan_type"],
+                inputs=[
+                    "quarterly_features_cbo_imputed",
+                    "params:plan_start_year",
+                    "params:plan_type",
+                ],
                 outputs="features_and_bases",
                 name="combine_features_bases_node",
             ),

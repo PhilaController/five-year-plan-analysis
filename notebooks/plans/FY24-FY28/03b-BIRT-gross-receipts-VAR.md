@@ -326,7 +326,3 @@ DATA.save("gross_receipts_fit_params", all_fits[:TOP])
 ```python
 
 ```
-
-```python
-
-```
